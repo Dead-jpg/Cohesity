@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3001/registrations";
+const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/registrations` : "http://localhost:3001/registrations";
 
 export const getRegistrations = async () => {
   const response = await fetch(API_URL);
