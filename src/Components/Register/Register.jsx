@@ -227,7 +227,7 @@ const Register = ({ open, onClose }) => {
           <div className="success-content-wrapper">
             <h2 className="success-received-title">Registration Received!</h2>
             <p className="success-received-subtitle">Your response is recorded successfully!</p>
-            
+
             <div className="success-received-details">
               <p>
                 We are currently reviewing your details. If your registration is accepted, a separate email will be sent confirming your participation for attending the session.
@@ -252,10 +252,10 @@ const Register = ({ open, onClose }) => {
                 >
                   <div className="calendar-icon-wrapper">
                     <svg viewBox="0 0 24 24">
-                      <path fill="#00ca9d" d="M21.35 11.1h-9.17v2.73h6.51c-.33 1.56-1.56 2.95-3.24 3.5v2.88h5.08c2.97-2.73 4.67-6.75 4.67-11.53c0-.6-.05-1.2-.15-1.58z"/>
-                      <path fill="#00ca9d" d="M12.18 20.25c2.7 0 4.97-.9 6.63-2.42l-5.08-2.88c-.8.53-1.85.86-3.15.86c-2.43 0-4.5-1.63-5.23-3.83H1.03v2.98c2.08 4.14 6.38 6.95 11.15 6.95z"/>
-                      <path fill="#00ca9d" d="M6.95 11.98c-.19-.53-.3-1.1-.3-1.68s.11-1.15.3-1.68V5.64H1.03C.37 6.95 0 8.43 0 10.3s.37 3.35 1.03 4.66l5.92-2.98z"/>
-                      <path fill="#00ca9d" d="M12.18 5.75c1.47 0 2.78.5 3.82 1.5l2.87-2.87C17.15 2.8 14.88 2 12.18 2C7.41 2 3.11 4.8 1.03 8.94l5.92 2.98c.73-2.2 2.8-3.83 5.23-3.83z"/>
+                      <path fill="#00ca9d" d="M21.35 11.1h-9.17v2.73h6.51c-.33 1.56-1.56 2.95-3.24 3.5v2.88h5.08c2.97-2.73 4.67-6.75 4.67-11.53c0-.6-.05-1.2-.15-1.58z" />
+                      <path fill="#00ca9d" d="M12.18 20.25c2.7 0 4.97-.9 6.63-2.42l-5.08-2.88c-.8.53-1.85.86-3.15.86c-2.43 0-4.5-1.63-5.23-3.83H1.03v2.98c2.08 4.14 6.38 6.95 11.15 6.95z" />
+                      <path fill="#00ca9d" d="M6.95 11.98c-.19-.53-.3-1.1-.3-1.68s.11-1.15.3-1.68V5.64H1.03C.37 6.95 0 8.43 0 10.3s.37 3.35 1.03 4.66l5.92-2.98z" />
+                      <path fill="#00ca9d" d="M12.18 5.75c1.47 0 2.78.5 3.82 1.5l2.87-2.87C17.15 2.8 14.88 2 12.18 2C7.41 2 3.11 4.8 1.03 8.94l5.92 2.98c.73-2.2 2.8-3.83 5.23-3.83z" />
                     </svg>
                   </div>
                   <span>Google</span>
@@ -269,7 +269,7 @@ const Register = ({ open, onClose }) => {
                 >
                   <div className="calendar-icon-wrapper">
                     <svg viewBox="0 0 24 24" fill="#00ca9d">
-                      <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5H7v2h5v-2zm4 0h-3v2h3v-2zm-4 4H7v2h5v-2zm4 0h-3v2h3v-2z"/>
+                      <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10zm0-12H5V6h14v2zm-7 5H7v2h5v-2zm4 0h-3v2h3v-2zm-4 4H7v2h5v-2zm4 0h-3v2h3v-2z" />
                     </svg>
                   </div>
                   <span>Outlook</span>
@@ -282,7 +282,7 @@ const Register = ({ open, onClose }) => {
                 >
                   <div className="calendar-icon-wrapper">
                     <svg viewBox="0 0 24 24" fill="#00ca9d">
-                      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.12.09 2.27-.57 2.95-1.39z"/>
+                      <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.12.09 2.27-.57 2.95-1.39z" />
                     </svg>
                   </div>
                   <span>Apple</span>
@@ -337,7 +337,7 @@ const Register = ({ open, onClose }) => {
 
         <form onSubmit={handleSubmit} className="register-form" noValidate>
           <div className="form-group">
-            <label className={`form-label ${formerror.firstName ? "label-error" : ""}`}>
+            <label className='form-label'>
               First Name <span className="required-asterisk">*</span>
             </label>
             <input
@@ -354,7 +354,7 @@ const Register = ({ open, onClose }) => {
           </div>
 
           <div className="form-group">
-            <label className={`form-label ${formerror.lastName ? "label-error" : ""}`}>
+            <label className='form-label'>
               Last Name <span className="required-asterisk">*</span>
             </label>
             <input
@@ -371,7 +371,7 @@ const Register = ({ open, onClose }) => {
           </div>
 
           <div className="form-group">
-            <label className={`form-label ${formerror.email ? "label-error" : ""}`}>
+            <label className='form-label'>
               Corporate Email <span className="required-asterisk">*</span>
             </label>
             <input
@@ -388,7 +388,7 @@ const Register = ({ open, onClose }) => {
           </div>
 
           <div className="form-group">
-            <label className={`form-label ${formerror.company ? "label-error" : ""}`}>
+            <label className='form-label'>
               Company <span className="required-asterisk">*</span>
             </label>
             <input
@@ -404,7 +404,7 @@ const Register = ({ open, onClose }) => {
           </div>
 
           <div className="form-group">
-            <label className={`form-label ${formerror.jobTitle ? "label-error" : ""}`}>
+            <label className='form-label'>
               Job Title <span className="required-asterisk">*</span>
             </label>
             <input
@@ -420,7 +420,7 @@ const Register = ({ open, onClose }) => {
           </div>
 
           <div className="form-group">
-            <label className={`form-label ${formerror.phoneNumber ? "label-error" : ""}`}>
+            <label className='form-label'>
               Phone Number <span className="required-asterisk">*</span>
             </label>
             <input
@@ -436,7 +436,7 @@ const Register = ({ open, onClose }) => {
           </div>
 
           <div className="form-group">
-            <label className={`form-label ${formerror.country ? "label-error" : ""}`}>
+            <label className='form-label'>
               Country <span className="required-asterisk">*</span>
             </label>
 
@@ -473,7 +473,7 @@ const Register = ({ open, onClose }) => {
           </div>
 
           <div className="form-group">
-            <label className={`form-label ${formerror.invitedBy ? "label-error" : ""}`}>
+            <label className='form-label'>
               Please type the representative and/or company that invited you
               below <span className="required-asterisk">*</span>
             </label>
