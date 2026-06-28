@@ -361,7 +361,11 @@ const Register = ({ open, onClose }) => {
 
           {Object.keys(formerror).length > 0 && (
             <div className="form-error-summary">
-              There were some errors submitting the form. Please make sure all questions are correctly answered.
+              {formerror.email && formerror.email !== 'The question "Corporate Email" is required.' ? (
+                "Sorry, you cannot RSVP to this event with this email"
+              ) : (
+                "There were some errors submitting the form. Please make sure all questions are correctly answered."
+              )}
             </div>
           )}
 
