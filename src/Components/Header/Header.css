@@ -78,7 +78,6 @@
   display: flex;
   align-items: center;
   gap: 25px;
-  margin-right: -30px;
 }
 
 .nav-item {
@@ -110,7 +109,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: -70px;
 }
 
 .register-btn:hover {
