@@ -44,10 +44,21 @@ const Register = ({ open, onClose }) => {
 
     if (!values.email.trim()) {
       error.email = 'The question "Corporate Email" is required.';
-    } else if (
-      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-    ) {
-      error.email = "Please enter a valid email address";
+    } else {
+      const emailVal = values.email.trim();
+      if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(emailVal)) {
+        error.email = "Please enter a valid email address";
+      } else {
+        const domain = emailVal.substring(emailVal.lastIndexOf("@") + 1).toLowerCase();
+        const personalDomains = [
+          "gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "live.com",
+          "aol.com", "icloud.com", "zoho.com", "protonmail.com", "yandex.com",
+          "mail.com", "gmx.com", "rediffmail.com", "yahoo.co.in"
+        ];
+        if (personalDomains.includes(domain)) {
+          error.email = "Please enter a valid corporate email address.";
+        }
+      }
     }
 
     if (!values.company.trim()) {
