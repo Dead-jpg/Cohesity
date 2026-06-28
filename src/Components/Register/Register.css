@@ -302,3 +302,147 @@
 .form-label.label-error {
   color: #d03112;
 }
+
+/* Success received layout styling */
+.success-brand-header {
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.success-cohesity-logo {
+  height: 38px;
+  object-fit: contain;
+}
+
+.success-content-wrapper {
+  text-align: left;
+}
+
+.success-received-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.success-received-subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 25px;
+}
+
+.success-received-details {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #555555;
+  margin-bottom: 20px;
+}
+
+.success-received-details p {
+  margin-bottom: 15px;
+}
+
+.success-received-disclaimer {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #777777;
+  border-top: 1px solid #eeeeee;
+  padding-top: 15px;
+  margin-bottom: 30px;
+}
+
+.calendar-section {
+  border-top: 1px solid #eeeeee;
+  padding-top: 20px;
+}
+
+.calendar-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111111;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.calendar-icons-container {
+  display: flex;
+  gap: 35px;
+  flex-wrap: wrap;
+}
+
+.calendar-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #555555;
+  font-size: 13px;
+  font-weight: 500;
+  gap: 8px;
+  transition: opacity 0.2s ease;
+}
+
+.calendar-link:hover {
+  opacity: 0.8;
+}
+
+.calendar-icon-wrapper {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.calendar-icon-wrapper svg {
+  width: 32px;
+  height: 32px;
+}
+
+.yahoo-y-text {
+  font-family: Arial, sans-serif;
+  font-size: 38px;
+  font-weight: 900;
+  font-style: italic;
+  color: #29c76f;
+  line-height: 1;
+}
+
+/* Loading state styling */
+.loading-modal-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 250px;
+}
+
+.loading-spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.loading-spinner {
+  width: 45px;
+  height: 45px;
+  border: 4px solid rgba(41, 199, 111, 0.1);
+  border-top-color: #29c76f;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: #555555;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
