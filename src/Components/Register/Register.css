@@ -239,6 +239,24 @@
     width: 100%;
     padding: 14px;
   }
+
+  .success-received-title {
+    font-size: 24px;
+  }
+
+  .success-received-subtitle {
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+
+  .calendar-icons-container {
+    justify-content: flex-start;
+    gap: 24px;
+  }
+
+  .calendar-link {
+    font-size: 12px;
+  }
 }
 
 .success-message {
