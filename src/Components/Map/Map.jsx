@@ -21,15 +21,56 @@ const customIcon = L.divIcon({
 });
 
 
-const MapRecenter = ({ position }) => {
+const MapLifecycleManager = ({ position }) => {
     const map = useMap();
+
     useEffect(() => {
-        const timer = setTimeout(() => {
-            map.setView(position, map.getZoom());
+        if (!map) return;
+
+        const container = map.getContainer();
+
+        // 1. ResizeObserver: recalculate size on container size changes
+        const resizeObserver = new ResizeObserver(() => {
             map.invalidateSize();
-        }, 200);
-        return () => clearTimeout(timer);
+            map.setView(position, map.getZoom());
+        });
+        resizeObserver.observe(container);
+
+        // 2. IntersectionObserver: recalculate size and center when map enters viewport
+        const intersectionObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            map.invalidateSize();
+                            map.setView(position, map.getZoom());
+                        }, 100);
+                    }
+                });
+            },
+            { threshold: 0.1 }
+        );
+        intersectionObserver.observe(container);
+
+        // 3. Fallback initial load timeouts
+        const timer1 = setTimeout(() => {
+            map.invalidateSize();
+            map.setView(position, map.getZoom());
+        }, 300);
+
+        const timer2 = setTimeout(() => {
+            map.invalidateSize();
+            map.setView(position, map.getZoom());
+        }, 1000);
+
+        return () => {
+            resizeObserver.unobserve(container);
+            intersectionObserver.unobserve(container);
+            clearTimeout(timer1);
+            clearTimeout(timer2);
+        };
     }, [map, position]);
+
     return null;
 };
 
@@ -58,7 +99,7 @@ const Map = () => {
                             </Popup>
                         </Marker>
 
-                        <MapRecenter position={position} />
+                        <MapLifecycleManager position={position} />
                     </MapContainer>
                 </div>
 

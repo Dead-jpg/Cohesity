@@ -547,7 +547,7 @@ const Register = ({ open, onClose }) => {
             </p>
           </div>
 
-          {Object.keys(formerror).length > 0 && (
+          {Object.values(formerror).some((err) => err) && (
             <div className="form-error-summary">
               {formerror.email && formerror.email !== 'The question "Corporate Email" is required.' ? (
                 "Sorry, you cannot RSVP to this event with this email"

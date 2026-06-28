@@ -1,14 +1,16 @@
 .footer-section {
-  background-color: #000000;
   width: 100%;
-  padding: 45px 0;
-  border-top: 1px solid #111111;
+  background: #000;
+  padding: 50px 0;
+  border-top: 1px solid #111;
 }
 
 .footer-container {
-  max-width: 1440px;
+  max-width: 1350px;
+  width: 100%;
   margin: 0 auto;
   padding: 0 30px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -18,55 +20,57 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 12px;
 }
 
 .footer-logo {
-  height: 28px;
-  width: auto;
+  width: 150px;
+  height: auto;
   display: block;
-  /* Invert black to white while keeping the green accent green */
+  margin-bottom: 16px;
+
+  /* Remove if your logo is already white */
   filter: invert(1) hue-rotate(180deg) brightness(1.2);
 }
 
 .copyright {
-  color: #8c8c8c;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 0.2px;
+  margin: 0;
+  color: #fff;
+  font-size: 10px;
+  line-height: 1.5;
 }
 
 .footer-right {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 23px;
 }
 
 .footer-link {
-  color: #cccccc;
+  color: #fff;
   text-decoration: none;
-  font-size: 13px;
+  font-size: 10px;
   font-weight: 500;
-  transition: color 0.2s ease;
+  transition: .3s;
+  margin-top: 40px;
 }
 
 .footer-link:hover {
-  color: #00ff99;
+  color: #00e676;
 }
 
-.footer-phone {
-  color: #cccccc;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-}
 
-/* Responsiveness */
+/* ---------- Mobile ---------- */
+
 @media (max-width: 768px) {
+
+  .footer-section {
+    padding: 40px 15px;
+  }
+
   .footer-container {
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 30px;
     text-align: center;
   }
 
@@ -74,8 +78,26 @@
     align-items: center;
   }
 
+  .footer-logo {
+    width: 170px;
+    margin-bottom: 18px;
+  }
+
+  .copyright {
+    margin-bottom: 8px;
+    font-size: 10px;
+  }
+
   .footer-right {
-    flex-direction: column;
-    gap: 15px;
+    justify-content: center;
+    gap: 10px;
+    position: relative;
+    bottom: 40px;
+    margin-bottom: -30px;
+  }
+
+  .footer-link,
+  .footer-phone {
+    font-size: 9px;
   }
 }
