@@ -1,0 +1,121 @@
+.agenda-section {
+  background: #ffffff;
+  padding: 100px 30px;
+}
+
+.agenda-heading {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.agenda-heading span {
+  display: inline-block;
+  font-family: "Montserrat", sans-serif;
+  font-size: 40px;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #111;
+  padding: 8px 90px;
+  background: linear-gradient(90deg,
+      rgba(0, 240, 143, 0),
+      rgba(0, 240, 143, 0.5),
+      rgba(0, 240, 143, 0));
+}
+
+.agenda-container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.agenda-list {
+  border-top: 2px solid #ffa500;
+}
+
+.agenda-item {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  padding: 60px 40px;
+  gap: 60px;
+  align-items: start;
+  border-bottom: 2px solid #ffa500;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.agenda-item:hover {
+  background-color: rgba(0, 240, 143, 0.03);
+}
+
+.agenda-time {
+  font-family: "Montserrat", sans-serif;
+  font-size: 32px;
+  font-weight: 800;
+  color: #000000;
+  white-space: nowrap;
+  letter-spacing: -0.5px;
+}
+
+.agenda-details {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.agenda-item:hover .agenda-details {
+  transform: translateX(12px);
+}
+
+.agenda-title {
+  font-family: "Montserrat", sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  color: #555555;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.agenda-speaker {
+  font-family: "Montserrat", sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  color: #777777;
+  margin: 12px 0 0 0;
+  line-height: 1.5;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .agenda-section {
+    padding: 60px 15px;
+  }
+
+  .agenda-heading {
+    margin-bottom: 40px;
+  }
+
+  .agenda-heading span {
+    font-size: 28px;
+    padding: 6px 45px;
+  }
+
+  .agenda-item {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 25px 10px;
+  }
+
+  .agenda-item:hover .agenda-details {
+    transform: none;
+  }
+
+  .agenda-time {
+    font-size: 20px;
+  }
+
+  .agenda-title {
+    font-size: 18px;
+  }
+
+  .agenda-speaker {
+    font-size: 15px;
+  }
+}

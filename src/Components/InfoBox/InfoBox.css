@@ -1,0 +1,105 @@
+.why-attend {
+    background: #e8e9e9;
+    padding: 100px 30px;
+}
+
+.why-attend-heading {
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+.why-attend-heading span {
+    display: inline-block;
+
+    font-family: "Montserrat", sans-serif;
+    font-size: 40px;
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #111;
+
+    padding: 8px 90px;
+
+    background: linear-gradient(90deg,
+            rgba(255, 90, 220, 0),
+            rgba(255, 90, 220, 0.5),
+            rgba(255, 90, 220, 0));
+}
+
+.why-attend-container {
+    max-width: 1440px;
+    margin: 0 auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 60px;
+}
+
+.attend-card {
+    flex: 1;
+    text-align: center;
+}
+
+.attend-card img {
+    width: 130px;
+    height: 130px;
+    margin-bottom: 25px;
+}
+
+.attend-card h3 {
+    font-family: "Montserrat", sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: #111;
+    margin-bottom: 18px;
+}
+
+.attend-card p {
+    font-family: "Montserrat", sans-serif;
+    font-size: 18px;
+    line-height: 1.7;
+    color: #444;
+    font-weight: 500;
+}
+
+/* InfoBox Section Responsiveness */
+@media (max-width: 1024px) {
+    .why-attend {
+        padding: 60px 20px;
+    }
+
+    .why-attend-heading {
+        margin-bottom: 50px;
+    }
+
+    .why-attend-heading span {
+        font-size: 28px;
+        padding: 8px 40px;
+        width: auto;
+    }
+
+    .why-attend-container {
+        flex-direction: column;
+        gap: 50px;
+        align-items: center;
+    }
+
+    .attend-card {
+        max-width: 500px;
+    }
+
+    .attend-card img {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 20px;
+    }
+
+    .attend-card h3 {
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+
+    .attend-card p {
+        font-size: 15px;
+    }
+}
