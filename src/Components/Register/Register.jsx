@@ -169,6 +169,31 @@ const Register = ({ open, onClose }) => {
   }
 
   if (showSuccessScreen) {
+    const title = "Catalyst On Tour: Mumbai";
+    const eventLocation = "Sofitel Mumbai BKC C 57 Mumbai MH 400051";
+    const description = "See you there!";
+    const startTime = "20260703T033000Z";
+    const endTime = "20260703T083000Z";
+
+    const icsData = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "BEGIN:VEVENT",
+      `DTSTART:${startTime}`,
+      `DTEND:${endTime}`,
+      `SUMMARY:${title}`,
+      `DESCRIPTION:${description}`,
+      `LOCATION:${eventLocation}`,
+      "END:VEVENT",
+      "END:VCALENDAR"
+    ].join("\n");
+
+    const appleCalendarHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(icsData)}`;
+
+    const googleUrl = `https://calendar.google.com/calendar/u/0/r/eventedit?text=${encodeURIComponent(title)}&dates=${startTime}/${endTime}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(eventLocation)}`;
+    const outlookUrl = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${encodeURIComponent(title)}&startdt=2026-07-03T09:00:00&enddt=2026-07-03T14:00:00&body=${encodeURIComponent(description)}&location=${encodeURIComponent(eventLocation)}`;
+    const yahooUrl = `https://calendar.yahoo.com/?v=60&view=d&type=20&title=${encodeURIComponent(title)}&st=20260703T090000&et=20260703T140000&desc=${encodeURIComponent(description)}&in_loc=${encodeURIComponent(eventLocation)}`;
+
     return (
       <div className="register-overlay" onClick={handleClose}>
         <div
@@ -220,7 +245,7 @@ const Register = ({ open, onClose }) => {
               <h3 className="calendar-title">Add to Calendar</h3>
               <div className="calendar-icons-container">
                 <a
-                  href="https://calendar.google.com/"
+                  href={googleUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="calendar-link"
@@ -237,7 +262,7 @@ const Register = ({ open, onClose }) => {
                 </a>
 
                 <a
-                  href="https://outlook.live.com/"
+                  href={outlookUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="calendar-link"
@@ -251,9 +276,8 @@ const Register = ({ open, onClose }) => {
                 </a>
 
                 <a
-                  href="https://www.icloud.com/calendar"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={appleCalendarHref}
+                  download="catalyst-tour-mumbai.ics"
                   className="calendar-link"
                 >
                   <div className="calendar-icon-wrapper">
@@ -265,7 +289,7 @@ const Register = ({ open, onClose }) => {
                 </a>
 
                 <a
-                  href="https://calendar.yahoo.com/"
+                  href={yahooUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="calendar-link"
