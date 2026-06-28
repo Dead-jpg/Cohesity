@@ -23,6 +23,19 @@ const Register = ({ open, onClose }) => {
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
+      // Reset form state on open
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        company: "",
+        jobTitle: "",
+        phoneNumber: "",
+        country: "",
+        invitedBy: "",
+      });
+      setformerrors({});
+      setSuccessMessage("");
     } else {
       document.body.style.overflow = "";
       setIsSubmitting(false);
@@ -37,6 +50,18 @@ const Register = ({ open, onClose }) => {
   const handleClose = () => {
     setIsSubmitting(false);
     setShowSuccessScreen(false);
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      company: "",
+      jobTitle: "",
+      phoneNumber: "",
+      country: "",
+      invitedBy: "",
+    });
+    setformerrors({});
+    setSuccessMessage("");
     onClose();
   };
 
