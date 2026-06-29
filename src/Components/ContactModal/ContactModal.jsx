@@ -13,7 +13,6 @@ const ContactModal = ({ open, onClose }) => {
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
-  const [result, setResult] = useState("");
 
   const [captchaChecked, setCaptchaChecked] = useState(false);
   const [captchaLoading, setCaptchaLoading] = useState(false);
@@ -115,12 +114,12 @@ const ContactModal = ({ open, onClose }) => {
     }
 
 
-    const web3FormData = new FormData(e.target);
-    web3FormData.append("access_key", "ff18c819-ef34-494d-be19-7e3850ef6d9e");
+    const formData = new FormData(e.target);
+    formData.append("access_key", "ff18c819-ef34-494d-be19-7e3850ef6d9e");
 
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
-      body: web3FormData
+      body: formData
     });
 
     const data = await response.json();
