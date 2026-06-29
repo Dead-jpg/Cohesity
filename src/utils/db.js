@@ -1,4 +1,6 @@
-const API_URL = import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/registrations` : "http://localhost:3001/registrations";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const API_URL = `${BASE_URL}/registrations`;
+const CONTACTS_API_URL = `${BASE_URL}/contacts`;
 
 export const getRegistrations = async () => {
   const response = await fetch(API_URL);
@@ -53,4 +55,25 @@ export const deleteRegistration = async (id) => {
     throw new Error("Failed to delete registration from API");
   }
   return id;
+};
+
+// POST - Add a contact message
+export const addContactMessage = async (messageData) => {
+  const newMsg = {
+    ...messageData,
+    submittedAt: new Date().toISOString()
+  };
+
+  const response = await fetch(CONTACTS_API_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(newMsg)
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to post contact message to API");
+  }
+  return response.json();
 };

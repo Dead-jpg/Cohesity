@@ -55,7 +55,8 @@
 }
 
 .footer-link:hover {
-  color: #00e676;
+  color: #1a1a1a;
+  background: #e5e5e5;
 }
 
 
@@ -99,5 +100,134 @@
   .footer-link,
   .footer-phone {
     font-size: 9px;
+  }
+}
+
+/* Grey Footer Bar Below */
+.footer-grey-bar {
+  background-color: #161616;
+  /* Dark grey colour */
+  padding: 18px 0;
+  border-top: 1px solid #242424;
+  width: 100%;
+}
+
+.footer-grey-container {
+  max-width: 1350px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 30px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.footer-grey-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+/* Collapsible Calendar Wrapper */
+.calendar-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Calendar Options (Google, Outlook, etc.) */
+.calendar-options {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  opacity: 0;
+  max-width: 0;
+  overflow: hidden;
+  transition: max-width 0.45s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+  white-space: nowrap;
+}
+
+.calendar-wrapper.expanded .calendar-options {
+  opacity: 1;
+  max-width: 320px;
+  /* Expand to show links */
+  margin-right: 18px;
+}
+
+.calendar-opt-link {
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.calendar-opt-link:hover {
+  color: #00e676;
+}
+
+/* Calendar Trigger Button */
+.calendar-trigger-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.calendar-trigger-btn:hover {
+  transform: scale(1.08);
+}
+
+/* Contact Organizer Button */
+.contact-organizer-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  padding: 5px 0;
+  transition: color 0.2s ease;
+  font-family: 'Inter', sans-serif;
+  text-transform: uppercase;
+}
+
+.contact-organizer-btn:hover {
+  color: #1a1a1a;
+  background: #e5e5e5;
+}
+
+/* Mobile responsive for grey footer */
+@media (max-width: 768px) {
+  .footer-grey-container {
+    justify-content: center;
+    padding: 0 15px;
+  }
+
+  .footer-grey-right {
+    gap: 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .calendar-wrapper.expanded .calendar-options {
+    max-width: 250px;
+    gap: 12px;
+  }
+
+  .calendar-opt-link {
+    font-size: 11px;
+  }
+
+  .contact-organizer-btn {
+    font-size: 11px;
   }
 }

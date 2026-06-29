@@ -29,14 +29,12 @@ const MapLifecycleManager = ({ position }) => {
 
         const container = map.getContainer();
 
-        // 1. ResizeObserver: recalculate size on container size changes
         const resizeObserver = new ResizeObserver(() => {
             map.invalidateSize();
             map.setView(position, map.getZoom());
         });
         resizeObserver.observe(container);
 
-        // 2. IntersectionObserver: recalculate size and center when map enters viewport
         const intersectionObserver = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {

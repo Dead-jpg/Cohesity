@@ -1,0 +1,392 @@
+/* Contact Modal Overlay */
+.contact-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 10050;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.contact-modal {
+  background-color: #fff;
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  position: relative;
+  padding: 40px 35px 35px 35px;
+  max-height: 90vh;
+  overflow-y: auto;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+
+.contact-modal::-webkit-scrollbar {
+  width: 6px;
+}
+
+.contact-modal::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.contact-modal::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.contact-modal::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+
+.contact-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s;
+}
+
+.contact-close-btn:hover {
+  opacity: 0.7;
+}
+
+.contact-title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.contact-form-group {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.contact-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #5c5c5c;
+  margin-bottom: 6px;
+}
+
+.red-asterisk {
+  color: #e53935;
+  font-weight: bold;
+}
+
+
+.contact-input {
+  border: none;
+  border-bottom: 1px solid #c8c8c8;
+  padding: 8px 0;
+  font-size: 15px;
+  color: #2c2c2c;
+  background-color: transparent;
+  outline: none;
+  transition: border-color 0.2s ease;
+  width: 100%;
+}
+
+.contact-input::placeholder {
+  color: #b0b0b0;
+  font-size: 14px;
+}
+
+.contact-input:focus {
+  border-bottom: 2px solid #7c3aed;
+}
+
+
+.contact-textarea {
+  border: 1px solid #c8c8c8;
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-size: 15px;
+  color: #2c2c2c;
+  background-color: #fff;
+  outline: none;
+  transition: border-color 0.2s ease;
+  resize: vertical;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.contact-textarea::placeholder {
+  color: #b0b0b0;
+  font-size: 14px;
+}
+
+.contact-textarea:focus {
+  border: 1px solid #7c3aed;
+  box-shadow: 0 0 0 1px #7c3aed;
+}
+
+
+.contact-input.input-error {
+  border-bottom-color: #e53935;
+}
+
+.contact-textarea.input-error {
+  border-color: #e53935;
+}
+
+.contact-error-msg {
+  color: #e53935;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+
+.recaptcha-outer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 5px;
+}
+
+.recaptcha-widget {
+  width: 302px;
+  height: 76px;
+  background-color: #f9f9f9;
+  border: 1px solid #d3d3d3;
+  border-radius: 3px;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  box-sizing: border-box;
+}
+
+.recaptcha-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.recaptcha-checkbox {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #c1c1c1;
+  background-color: #fff;
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: border-color 0.2s;
+}
+
+.recaptcha-checkbox:hover {
+  border-color: #b2b2b2;
+}
+
+.recaptcha-checkbox.verified {
+  border-color: transparent;
+  cursor: default;
+}
+
+.recaptcha-checkbox.loading {
+  border-color: #4a90e2;
+  cursor: default;
+}
+
+.recaptcha-text {
+  font-size: 14px;
+  color: #222;
+  font-weight: 500;
+  user-select: none;
+}
+
+
+.recaptcha-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2.5px solid #eaeaea;
+  border-top: 2.5px solid #4a90e2;
+  border-radius: 50%;
+  animation: recaptcha-spin 0.8s linear infinite;
+}
+
+@keyframes recaptcha-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.recaptcha-check-svg {
+  width: 20px;
+  height: 20px;
+  animation: checkmark-draw 0.3s ease-in-out forwards;
+}
+
+@keyframes checkmark-draw {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.recaptcha-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.recaptcha-branding {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.recaptcha-logo-svg {
+  width: 32px;
+  height: 32px;
+}
+
+.recaptcha-logo-label {
+  font-size: 8px;
+  color: #555;
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.recaptcha-links {
+  font-size: 8px;
+  color: #555;
+  margin-top: 1px;
+}
+
+.recaptcha-links a {
+  color: #555;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.recaptcha-links a:hover {
+  text-decoration: underline;
+}
+
+.captcha-error {
+  margin-top: 8px;
+}
+
+
+.contact-submit-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.contact-submit-btn {
+  background-color: #7c3aed;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 12px 32px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  width: auto;
+}
+
+.contact-submit-btn:hover {
+  background-color: #6d28d9;
+}
+
+.contact-submit-btn:active {
+  transform: scale(0.98);
+}
+
+.contact-submit-btn:disabled {
+  background-color: #a78bfa;
+  cursor: not-allowed;
+}
+
+
+.contact-success-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px 10px;
+}
+
+.success-icon-wrapper {
+  margin-bottom: 20px;
+}
+
+.success-checkmark-svg {
+  width: 64px;
+  height: 64px;
+}
+
+.success-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 12px 0;
+}
+
+.success-text {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+  margin: 0 0 25px 0;
+  max-width: 360px;
+}
+
+.success-close-btn {
+  background-color: #7c3aed;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.success-close-btn:hover {
+  background-color: #6d28d9;
+}

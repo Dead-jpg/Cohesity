@@ -2,7 +2,8 @@
 
 .hero {
   width: 100%;
-  min-height: calc(100vh - 82px);
+  min-height: 720px;
+  /* Reduced from 100vh */
   display: flex;
   align-items: center;
   background:
@@ -18,13 +19,11 @@
   content: "";
   position: absolute;
   inset: 0;
-
   background: repeating-linear-gradient(180deg,
       rgba(255, 255, 255, 0.08) 0px,
       rgba(255, 255, 255, 0.08) 28px,
       transparent 28px,
       transparent 85px);
-
   pointer-events: none;
 }
 
@@ -32,61 +31,61 @@
   width: 100%;
   max-width: 1440px;
   margin: 0 auto;
+  padding: 40px 30px;
+  /* Reduced top & bottom padding */
 
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  padding: 60px 30px;
   position: relative;
   z-index: 2;
 }
 
 .hero-content {
   flex: 0 0 40%;
+  margin-left: 100px;
+  margin-bottom: 40px;
+  /* Removed huge gap */
 }
 
 .hero-logo {
-  width: 480px;
+  width: 380px;
   display: block;
   margin-bottom: 20px;
 }
 
 .hero-content h2 {
   font-family: "Montserrat", sans-serif;
-  font-size: 64px;
-  font-weight: 900;
+  font-size: 40px;
+  /* Fixed typo */
+  font-weight: 800;
   line-height: 1.1;
-  margin-top: 25px;
-  margin-bottom: 15px;
-  color: #000000;
+  margin: 25px 0 15px;
+  color: #000;
 }
 
 .hero-content p {
   font-family: "Montserrat", sans-serif;
   font-size: 26px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.4;
   margin: 0;
-  color: #000000;
+  color: #000;
+
 }
 
 .hero-btn {
   margin-top: 35px;
-
   background: #ef58dc;
-  color: #000000;
-
-  border: 1.5px solid #000000;
+  color: #000;
+  border: 1.5px solid #000;
   border-radius: 6px;
-
-  padding: 20px 60px;
-
+  padding: 20px 30px;
   font-family: "Montserrat", sans-serif;
   font-size: 24px;
   font-weight: 900;
   letter-spacing: 0.5px;
-
   cursor: pointer;
   transition: 0.3s;
 }
@@ -97,25 +96,27 @@
 }
 
 .hero-image-wrapper {
-  flex: 0 0 55%;
-  max-width: 800px;
+  flex: 0 0 65%;
+  max-width: 650px;
   position: relative;
+  margin-bottom: 50px;
+  /* Removed huge gap */
 }
 
 .hero-image {
-  width: 100%;
+  width: 90%;
   display: block;
   position: relative;
   z-index: 2;
 }
 
 .pink-box {
-  width: 350px;
+  width: 300px;
   height: 300px;
   background: #ef58dc;
   position: absolute;
-  right: -40px;
-  bottom: -40px;
+  right: 30px;
+  bottom: -30px;
   z-index: 1;
 }
 
@@ -178,35 +179,133 @@
 
 @media (max-width: 480px) {
   .hero {
+    min-height: auto;
     padding: 40px 0;
   }
 
   .hero-container {
-    padding: 20px 16px;
-    gap: 30px;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    padding: 30px 20px;
+    gap: 35px;
+  }
+
+  .hero-content {
+    flex: 1;
+    margin: 0;
+    text-align: center;
   }
 
   .hero-logo {
-    max-width: 280px;
+    width: 260px;
+    max-width: 100%;
+    margin: 0 auto 20px;
   }
 
   .hero-content h2 {
-    font-size: 32px;
+    font-size: 28px;
+    margin: 20px 0 12px;
+  }
+
+  .hero-content p {
+    font-size: 18px;
+    line-height: 1.5;
+  }
+
+  .hero-btn {
+    width: 100%;
+    max-width: 280px;
+    padding: 15px 20px;
+    font-size: 18px;
+    margin-top: 25px;
+  }
+
+  .hero-image-wrapper {
+    flex: 1;
+    width: 100%;
+    max-width: 320px;
+    margin: 0;
+  }
+
+  .hero-image {
+    width: 100%;
+  }
+
+  .pink-box {
+    width: 130px;
+    height: 120px;
+    right: -15px;
+    bottom: -15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    min-height: auto;
+    padding: 30px 0;
+  }
+
+  .hero-container {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 30px;
+  }
+
+  .hero-content {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .hero-logo {
+    width: 240px;
+    max-width: 100%;
+
+    display: block;
+
+    margin: 0 0 20px 0;
+  }
+
+  .hero-content h2 {
+    font-size: 26px;
+    line-height: 1.1;
+    margin: 0 0 12px;
   }
 
   .hero-content p {
     font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
   }
 
   .hero-btn {
-    max-width: 100%;
-    padding: 14px 20px;
+    display: inline-block;
+    width: auto;
+    padding: 14px 28px;
     font-size: 16px;
+    margin-top: 24px;
+  }
+
+  .hero-image-wrapper {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    align-self: center;
+  }
+
+  .hero-image {
+    width: 100%;
   }
 
   .pink-box {
-    width: 150px;
-    height: 130px;
+    width: 130px;
+    height: 120px;
     right: -15px;
     bottom: -15px;
   }

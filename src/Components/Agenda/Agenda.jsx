@@ -34,6 +34,20 @@ const Agenda = () => {
       time: "12:15 AM - 12:30 PM",
       title: "Tea Break",
     },
+    {
+      time: "12:30 PM - 1:15 PM",
+      title: "Cyber Resilience in the Age of AI: A CXO's Playbook for Staying Ahead",
+      speaker: "Customers and in conversation with Sunil Moolchandani, Chief Strategy Officer - Cohesity"
+    },
+    {
+      time: "1:15 PM - 2:00 PM",
+      title: " Unlocking Intelligence: AI-Powered Insights for Faster Response",
+      speaker: "Speaker: Kesavan Palanichamy, Senior Staff Product Management - Cohesity"
+    },
+    {
+      time: "2:00 PM",
+      title: " Networking Lunch",
+    },
   ];
 
   return (

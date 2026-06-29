@@ -196,5 +196,31 @@
       "id": "tGEaY47Bvfc"
     }
   ],
+  "contacts": [
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "company": "Acme Corp",
+      "note": "This is a test message.",
+      "submittedAt": "2026-06-29T15:09:09.528Z",
+      "id": "HFXFOs8Ufos"
+    },
+    {
+      "name": "John Doe",
+      "email": "jashithnpoojary@gmail.com",
+      "company": "Cohesity",
+      "note": "I am Jash",
+      "submittedAt": "2026-06-29T15:13:20.699Z",
+      "id": "nyEUIawKYhE"
+    },
+    {
+      "name": "John Doe",
+      "email": "john@example.com",
+      "company": "Acme Corp",
+      "note": "This is a test message.",
+      "submittedAt": "2026-06-29T15:16:39.305Z",
+      "id": "XN1bdbEIrk8"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

@@ -4,44 +4,47 @@ body {
 
 .info {
     background: #f3f3f3;
-    padding: 100px 30px;
+    padding: 60px 20px;
 }
 
 .info-container {
-    max-width: 1300px;
+    max-width: 1050px;
     margin: 0 auto;
     text-align: center;
 }
 
 .info-container h2 {
-    font-family: "Montserrat", sans-serif;
-    font-size: 38px;
-    line-height: 1.4;
+    font-size: 26px;
+    line-height: 1.45;
     font-weight: 800;
     color: #111;
-    margin-bottom: 40px;
+    margin-bottom: 28px;
 }
 
 .info-container p {
-    font-family: "Montserrat", sans-serif;
-    font-size: 22px;
-    line-height: 1.8;
-    color: #333;
+    max-width: 980px;
+    margin: 0 auto 28px;
+
+    font-size: 16px;
+    line-height: 1.7;
     font-weight: 500;
-    margin-bottom: 35px;
+    color: #333;
 }
 
 .info-btn {
     background: #000;
     color: #00ff99;
+
     border: none;
-    border-radius: 8px;
-    padding: 22px 60px;
-    font-size: 24px;
+    border-radius: 6px;
+
+    padding: 16px 42px;
+
+    font-size: 18px;
     font-weight: 800;
-    letter-spacing: 0.5px;
+
     cursor: pointer;
-    transition: 0.3s ease-in-out;
+    transition: 0.3s;
 }
 
 .info-btn:hover {
