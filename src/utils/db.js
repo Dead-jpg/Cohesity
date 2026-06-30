@@ -37,7 +37,7 @@ export const updateRegistrationStatus = async (id, status) => {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ status }) // status comes from 
+    body: JSON.stringify({ status }) 
   });
 
   if (!response.ok) {
@@ -46,7 +46,7 @@ export const updateRegistrationStatus = async (id, status) => {
   return response.json();
 };
 
-// DELETE - Delete a registration
+
 export const deleteRegistration = async (id) => {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "DELETE"
@@ -57,7 +57,7 @@ export const deleteRegistration = async (id) => {
   return id;
 };
 
-// POST - Add a contact message
+
 export const addContactMessage = async (messageData) => {
   const newMsg = {
     ...messageData,

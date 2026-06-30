@@ -120,7 +120,7 @@
   display: none;
 }
 
-/* Responsiveness Media Queries */
+
 @media (max-width: 1024px) {
   .header-container {
     flex-direction: column;

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Register.css";
-import { addRegistration } from "../../utils/db";
+import { addRegistration, getRegistrations } from "../../utils/db";
 import Banner1 from "../../assets/banner1.png";
 
 const Register = ({ open, onClose }) => {
@@ -17,13 +17,15 @@ const Register = ({ open, onClose }) => {
     jobTitle: "",
     phoneNumber: "",
     country: "",
+    otherCountry: "",
     invitedBy: "",
+    optIn: false,
   });
 
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
-      // Reset form state on open
+
       setFormData({
         firstName: "",
         lastName: "",
@@ -32,7 +34,9 @@ const Register = ({ open, onClose }) => {
         jobTitle: "",
         phoneNumber: "",
         country: "",
+        otherCountry: "",
         invitedBy: "",
+        optIn: false,
       });
       setformerrors({});
       setSuccessMessage("");
@@ -58,7 +62,9 @@ const Register = ({ open, onClose }) => {
       jobTitle: "",
       phoneNumber: "",
       country: "",
+      otherCountry: "",
       invitedBy: "",
+      optIn: false,
     });
     setformerrors({});
     setSuccessMessage("");
@@ -87,7 +93,7 @@ const Register = ({ open, onClose }) => {
       } else {
         const domain = emailVal.substring(emailVal.lastIndexOf("@") + 1).toLowerCase();
         const personalDomains = [
-          "gmail.com", "yahoo.com", "hotmail.com", "outlook.com", "live.com",
+          "yahoo.com", "hotmail.com", "outlook.com", "live.com",
           "aol.com", "icloud.com", "zoho.com", "protonmail.com", "yandex.com",
           "mail.com", "gmx.com", "rediffmail.com", "yahoo.co.in"
         ];
@@ -107,10 +113,25 @@ const Register = ({ open, onClose }) => {
 
     if (!values.phoneNumber.trim()) {
       error.phoneNumber = 'The question "Phone Number" is required.';
+    } else {
+      const phoneVal = values.phoneNumber.trim();
+      const digits = phoneVal.replace(/\D/g, "");
+      const isRepeating = /^(\d)\1+$/.test(digits);
+      const isSequential = "01234567890123456789".includes(digits) || "98765432109876543210".includes(digits);
+
+      if (!/^\+?[0-9\s\-()]+$/.test(phoneVal)) {
+        error.phoneNumber = "Please enter a valid phone number.";
+      } else if (digits.length < 8 || digits.length > 15) {
+        error.phoneNumber = "Please enter a valid phone number (between 8 and 15 digits).";
+      } else if (isRepeating || isSequential) {
+        error.phoneNumber = "Please enter a valid, active phone number.";
+      }
     }
 
     if (!values.country) {
       error.country = 'The question "Country" is required.';
+    } else if (values.country === "Other" && (!values.otherCountry || !values.otherCountry.trim())) {
+      error.otherCountry = "Please enter your country.";
     }
 
     if (!values.invitedBy.trim()) {
@@ -128,7 +149,7 @@ const Register = ({ open, onClose }) => {
       [name]: value,
     }));
 
-    // Remove error while typing
+
     setformerrors((prev) => ({
       ...prev,
       [name]: "",
@@ -149,7 +170,27 @@ const Register = ({ open, onClose }) => {
     setIsSubmitting(true);
 
     try {
-      await addRegistration(formData);
+      const allRegs = await getRegistrations();
+      const emailExists = allRegs.some(
+        (reg) => reg.email.toLowerCase().trim() === formData.email.toLowerCase().trim()
+      );
+
+      if (emailExists) {
+        setIsSubmitting(false);
+        setformerrors((prev) => ({
+          ...prev,
+          email: "This email has already been registered for the event.",
+        }));
+        return;
+      }
+
+      const submissionData = {
+        ...formData,
+        country: formData.country === "Other" ? formData.otherCountry.trim() : formData.country
+      };
+      delete submissionData.otherCountry;
+
+      await addRegistration(submissionData);
 
       setTimeout(() => {
         setIsSubmitting(false);
@@ -163,7 +204,9 @@ const Register = ({ open, onClose }) => {
           jobTitle: "",
           phoneNumber: "",
           country: "",
+          otherCountry: "",
           invitedBy: "",
+          optIn: false,
         });
 
         setformerrors({});
@@ -332,6 +375,17 @@ const Register = ({ open, onClose }) => {
     );
   }
 
+  const isAnyFieldFilled = [
+    formData.firstName,
+    formData.lastName,
+    formData.email,
+    formData.company,
+    formData.jobTitle,
+    formData.phoneNumber,
+    formData.country,
+    formData.invitedBy
+  ].some(val => val && val.trim() !== "");
+
   return (
     <div className="register-overlay" onClick={handleClose}>
       <div
@@ -492,6 +546,22 @@ const Register = ({ open, onClose }) => {
               </select>
             </div>
 
+            {formData.country === "Other" && (
+              <input
+                type="text"
+                name="otherCountry"
+                className={`form-input ${formerror.otherCountry ? "input-error" : ""}`}
+                placeholder="Enter your country"
+                value={formData.otherCountry}
+                onChange={handleChange}
+                style={{ marginTop: "10px" }}
+              />
+            )}
+
+            {formData.country === "Other" && formerror.otherCountry && (
+              <span className="error-message">{formerror.otherCountry}</span>
+            )}
+
             {formerror.country && (
               <span className="error-message">{formerror.country}</span>
             )}
@@ -515,6 +585,44 @@ const Register = ({ open, onClose }) => {
               <span className="error-message">{formerror.invitedBy}</span>
             )}
           </div>
+
+          {isAnyFieldFilled && (
+            <div className="optin-container">
+              <input
+                type="checkbox"
+                name="optIn"
+                id="optInCheckbox"
+                className="optin-checkbox"
+                checked={formData.optIn || false}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, optIn: e.target.checked }))
+                }
+              />
+              <label htmlFor="optInCheckbox" className="optin-text">
+                Cohesity would like to use your information above to provide you
+                with the latest offers, promotions, and news regarding Cohesity
+                products and services. You can unsubscribe{" "}
+                <a
+                  href="https://www.cohesity.com/agreements/privacy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pink-link"
+                >
+                  here
+                </a>{" "}
+                at any time. Please see{" "}
+                <a
+                  href="https://www.cohesity.com/agreements/privacy/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pink-link"
+                >
+                  Cohesity's Privacy Policy
+                </a>{" "}
+                for more information.
+              </label>
+            </div>
+          )}
 
           <div className="disclaimer-container">
             <p className="disclaimer-text">

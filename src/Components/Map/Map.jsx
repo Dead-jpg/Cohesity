@@ -50,7 +50,7 @@ const MapLifecycleManager = ({ position }) => {
         );
         intersectionObserver.observe(container);
 
-        // 3. Fallback initial load timeouts
+        
         const timer1 = setTimeout(() => {
             map.invalidateSize();
             map.setView(position, map.getZoom());

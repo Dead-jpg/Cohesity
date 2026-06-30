@@ -26,6 +26,7 @@ const Admin = () => {
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState("All");
     const [notification, setNotification] = useState(null);
+    const [emailSentInfo, setEmailSentInfo] = useState(null);
 
     useEffect(() => {
         const fetchRegistrations = async () => {
@@ -48,13 +49,74 @@ const Admin = () => {
         }, 4000);
     };
 
+    const sendApprovalEmail = async (reg) => {
+        if (!reg || !reg.email) return;
+        try {
+            const emailBody = `Dear ${reg.firstName} ${reg.lastName},
+
+Your registration for Catalyst Tour: Mumbai has been approved! 
+
+We are thrilled to invite you to join us. Please find the venue details below:
+
+Venue Details:
+Sofitel Mumbai BKC
+C 57, Bandra Kurla Complex,
+Mumbai, Maharashtra 400051
+
+See you at the event!
+
+Best regards,
+Cohesity Catalyst Team`;
+
+            setEmailSentInfo({
+                recipient: reg.email,
+                subject: "Registration Approved - Catalyst Tour: Mumbai",
+                body: emailBody,
+                previewUrl: null
+            });
+
+            fetch('https://api.emailjs.com/api/v1.0/email/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    service_id: 'service_7hc5stu',
+                    template_id: 'template_p44ch7q',
+                    user_id: 'dZOxFJZEqZRwwmVi3',
+                    template_params: {
+                        to_name: `${reg.firstName} ${reg.lastName}`,
+                        to_email: reg.email,
+                        message: emailBody
+                    }
+                })
+            })
+            .then(async (response) => {
+                if (!response.ok) {
+                    const text = await response.text();
+                    console.error("EmailJS failed with error:", text);
+                } else {
+                    console.log("EmailJS sent successfully!");
+                }
+            })
+            .catch(e => console.error("EmailJS error:", e));
+        } catch (error) {
+            console.error("Failed to send approval email:", error);
+        }
+    };
+
     const handleApprove = async (id, name) => {
         try {
-            await updateRegistrationStatus(id, "Approved"); // this 
+            await updateRegistrationStatus(id, "Approved"); 
             setRegistrations((prev) =>
                 prev.map((reg) => (reg.id === id ? { ...reg, status: "Approved" } : reg))
             );
             triggerNotification(`${name} has been approved.`, "success");
+
+            const reg = registrations.find((r) => r.id === id);
+            if (reg) {
+                sendApprovalEmail(reg);
+            }
         } catch (error) {
             console.error("Failed to approve:", error);
             triggerNotification(`Failed to approve ${name}.`, "error");
@@ -160,7 +222,7 @@ const Admin = () => {
                     </div>
                 </section>
 
-                {/* Filters and Controls */}
+                
                 <section className="control-panel">
                     <div className="search-box">
                         <FaSearch className="search-icon" />
@@ -197,7 +259,7 @@ const Admin = () => {
                     </div>
                 </section>
 
-                {/* Table & Content Area */}
+                
                 <section className="table-container">
                     {filteredRegistrations.length === 0 ? (
                         <div className="no-records">
@@ -207,7 +269,7 @@ const Admin = () => {
                         </div>
                     ) : (
                         <>
-                            {/* Desktop Table View */}
+                            
                             <div className="table-wrapper">
                                 <table className="admin-table">
                                     <thead>
@@ -224,7 +286,7 @@ const Admin = () => {
                                     <tbody>
                                         {filteredRegistrations.map((reg) => (
                                             <tr key={reg.id} className={`table-row row-${reg.status.toLowerCase()}`}>
-                                                {/* Attendee Details */}
+                                                
                                                 <td>
                                                     <div className="attendee-cell">
                                                         <span className="avatar">
@@ -243,7 +305,7 @@ const Admin = () => {
                                                     </div>
                                                 </td>
 
-                                                {/* Company & Role */}
+                                                
                                                 <td>
                                                     <div className="company-cell">
                                                         <div className="job-title">{reg.jobTitle}</div>
@@ -253,26 +315,26 @@ const Admin = () => {
                                                     </div>
                                                 </td>
 
-                                                {/* Country */}
+                                                
                                                 <td>
                                                     <span className="country-tag">
                                                         <FaGlobe /> {reg.country || "N/A"}
                                                     </span>
                                                 </td>
 
-                                                {/* Invited By */}
+                                                
                                                 <td>
                                                     <span className="inviter-text">{reg.invitedBy || "None"}</span>
                                                 </td>
 
-                                                {/* Registered At */}
+                                                
                                                 <td>
                                                     <span className="date-text">
                                                         <FaCalendarAlt /> {formatDate(reg.registeredAt)}
                                                     </span>
                                                 </td>
 
-                                                {/* Status */}
+                                                
                                                 <td>
                                                     <span className={`status-badge badge-${reg.status.toLowerCase()}`}>
                                                         {reg.status === "Pending" && <FaHourglassHalf className="spin-slow" />}
@@ -294,7 +356,7 @@ const Admin = () => {
                                                                 <FaUserCheck /> Approve
                                                             </button>
                                                         )}
-                                                        {reg.status !== "Disapproved" && (
+                                                        {reg.status === "Pending" && (
                                                             <button
                                                                 className="action-btn disapprove"
                                                                 onClick={() => handleDisapprove(reg.id, `${reg.firstName} ${reg.lastName}`)}
@@ -321,7 +383,7 @@ const Admin = () => {
                                 </table>
                             </div>
 
-                            {/* Mobile Card View (renders on small screens automatically via CSS) */}
+                            
                             <div className="mobile-cards-grid">
                                 {filteredRegistrations.map((reg) => (
                                     <div key={reg.id} className={`mobile-card card-${reg.status.toLowerCase()}`}>
@@ -383,7 +445,7 @@ const Admin = () => {
                                                     <FaUserCheck /> Approve
                                                 </button>
                                             )}
-                                            {reg.status !== "Disapproved" && (
+                                            {reg.status === "Pending" && (
                                                 <button
                                                     className="action-btn disapprove"
                                                     onClick={() => handleDisapprove(reg.id, `${reg.firstName} ${reg.lastName}`)}
@@ -403,6 +465,66 @@ const Admin = () => {
             <footer className="admin-footer">
                 <p className="copyright">© 2026 Cohesity Catalyst Tour Admin Desk. Built for high-reliability event orchestration.</p>
             </footer>
+
+            {emailSentInfo && (
+                <div className="email-modal-overlay" onClick={() => setEmailSentInfo(null)}>
+                    <div className="email-modal-card" onClick={(e) => e.stopPropagation()}>
+                        <div className="email-modal-header">
+                            <div className="email-modal-title">
+                                <span className="email-icon">📧</span>
+                                <h3>Email Sent Automatically</h3>
+                            </div>
+                            <button className="email-close-btn" onClick={() => setEmailSentInfo(null)}>
+                                &times;
+                            </button>
+                        </div>
+                        <div className="email-modal-body">
+                            <div className="email-meta-row">
+                                <span className="meta-label">To:</span>
+                                <span className="meta-value">{emailSentInfo.recipient}</span>
+                            </div>
+                            <div className="email-meta-row">
+                                <span className="meta-label">Subject:</span>
+                                <span className="meta-value">{emailSentInfo.subject}</span>
+                            </div>
+                            <hr className="email-divider" />
+                            <div className="email-body-content">
+                                {emailSentInfo.body.split('\n').map((line, idx) => (
+                                    <p key={idx}>{line || '\u00A0'}</p>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="email-modal-footer" style={{ gap: '12px' }}>
+                            {emailSentInfo.previewUrl && (
+                                <a 
+                                    href={emailSentInfo.previewUrl} 
+                                    target="_blank" 
+                                    rel="noopener noreferrer" 
+                                    className="btn-preview-link"
+                                    style={{
+                                        display: 'inline-flex',
+                                        alignItems: 'center',
+                                        background: '#ff33cc',
+                                        color: '#ffffff',
+                                        textDecoration: 'none',
+                                        padding: '10px 24px',
+                                        fontWeight: '700',
+                                        fontSize: '13px',
+                                        borderRadius: '4px',
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.5px'
+                                    }}
+                                >
+                                    Open Web Inbox
+                                </a>
+                            )}
+                            <button className="btn-ok" onClick={() => setEmailSentInfo(null)}>
+                                Close Preview
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

@@ -321,7 +321,6 @@
   color: #d03112;
 }
 
-/* Success received layout styling */
 .success-brand-header {
   margin-bottom: 25px;
   text-align: left;
@@ -429,7 +428,6 @@
   line-height: 1;
 }
 
-/* Loading state styling */
 .loading-modal-layout {
   display: flex;
   justify-content: center;
@@ -463,4 +461,55 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.optin-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  padding: 0 10px;
+}
+
+.optin-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 4px;
+  background-color: #ffffff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: all 0.2s ease;
+}
+
+.optin-checkbox:checked {
+  background-color: #000000;
+  border-color: #00ca9d;
+}
+
+.optin-checkbox:checked::after {
+  content: "";
+  width: 5px;
+  height: 10px;
+  border: solid #ffffff;
+  border-width: 0 2.5px 2.5px 0;
+  transform: rotate(45deg);
+  position: absolute;
+  top: 1px;
+  left: 5px;
+}
+
+.optin-text {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #333333;
+  text-align: left;
 }

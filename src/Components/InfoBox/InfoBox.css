@@ -1,26 +1,26 @@
 .why-attend {
     background: #e8e9e9;
     padding: 60px 20px;
-    /* was 100px 30px */
+    
 }
 
 .why-attend-heading {
     text-align: center;
     margin-bottom: 50px;
-    /* was 80px */
+    
 }
 
 .why-attend-heading span {
     display: inline-block;
     font-family: "Montserrat", sans-serif;
     font-size: 28px;
-    /* was 40px */
+    
     font-weight: 900;
     text-transform: uppercase;
     color: #111;
 
     padding: 6px 70px;
-    /* was 8px 90px */
+    
 
     background: linear-gradient(90deg,
             rgba(255, 90, 220, 0),
@@ -30,14 +30,14 @@
 
 .why-attend-container {
     max-width: 1200px;
-    /* was 1440px */
+    
     margin: 0 auto;
 
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 40px;
-    /* was 60px */
+    
 }
 
 .attend-card {
@@ -47,7 +47,7 @@
 
 .attend-card img {
     width: 95px;
-    /* was 130px */
+    
     height: 95px;
     margin-bottom: 18px;
 }
@@ -55,7 +55,7 @@
 .attend-card h3 {
     font-family: "Montserrat", sans-serif;
     font-size: 16px;
-    /* was 24px */
+    
     font-weight: 800;
     color: #111;
     margin-bottom: 12px;
@@ -68,13 +68,13 @@
 
     font-family: "Montserrat", sans-serif;
     font-size: 14px;
-    /* was 18px */
+    
     line-height: 1.6;
     color: #444;
     font-weight: 500;
 }
 
-/* InfoBox Section Responsiveness */
+
 @media (max-width: 1024px) {
     .why-attend {
         padding: 60px 20px;

@@ -167,7 +167,7 @@
     font-size: 14px;
 }
 
-/* Media Queries */
+
 @media (max-width: 768px) {
     .custom-map-section {
         padding: 60px 15px;

@@ -26,7 +26,7 @@ const Header = ({ openregister }) => {
           />
         </div>
 
-        {/* Desktop and Mobile navigation drawer */}
+        
         <nav className={`nav-menu ${menuOpen ? "active" : ""}`}>
           <button className="mobile-close-btn" onClick={closeMenu} aria-label="Close Menu">
             <svg
@@ -80,7 +80,7 @@ const Header = ({ openregister }) => {
           </button>
         </div>
       </div>
-      {/* Semi-transparent overlay behind mobile drawer */}
+      
       {menuOpen && <div className="menu-overlay" onClick={closeMenu}></div>}
     </header>
   );

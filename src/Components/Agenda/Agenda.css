@@ -82,7 +82,7 @@
   line-height: 1.5;
 }
 
-/* Responsive Styles */
+
 @media (max-width: 768px) {
   .agenda-section {
     padding: 60px 15px;

@@ -1,4 +1,4 @@
-/* Cohesity Catalyst Tour Admin Dashboard Stylesheet */
+
 
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap");
 
@@ -15,7 +15,7 @@
   overflow-x: hidden;
 }
 
-/* Header styling */
+
 .admin-header {
   background-color: #05070a;
   border-bottom: 1.5px solid #1a2333;
@@ -99,7 +99,7 @@
   box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
 }
 
-/* Main Content Wrapper */
+
 .admin-main {
   flex: 1;
   max-width: 1440px;
@@ -111,7 +111,7 @@
   gap: 30px;
 }
 
-/* Dashboard Intro Title */
+
 .dashboard-intro {
   display: flex;
   justify-content: space-between;
@@ -181,7 +181,7 @@
   background-color: rgba(255, 255, 255, 0.02);
 }
 
-/* Statistics Section */
+
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -242,7 +242,7 @@
   color: #a0aec0;
 }
 
-/* Color schemes for stats cards */
+
 .stat-card.total .stat-icon-wrapper {
   background: rgba(66, 153, 225, 0.1);
   color: #4299e1;
@@ -282,7 +282,7 @@
   box-shadow: 0 10px 25px rgba(239, 88, 220, 0.05);
 }
 
-/* Background glows for stats */
+
 .stat-glow {
   position: absolute;
   width: 100px;
@@ -307,7 +307,7 @@
   background-color: #ef58dc;
 }
 
-/* Filter and Control Panel */
+
 .control-panel {
   display: flex;
   justify-content: space-between;
@@ -421,7 +421,7 @@
   color: #000000;
 }
 
-/* Table container styling */
+
 .table-container {
   background: rgba(18, 26, 42, 0.25);
   border: 1px solid #1a2333;
@@ -466,7 +466,7 @@
   background-color: rgba(255, 255, 255, 0.015);
 }
 
-/* Rows color left indicator border */
+
 .table-row.row-approved {
   border-left: 3px solid #00f08f;
 }
@@ -479,7 +479,7 @@
   border-left: 3px solid #ef58dc;
 }
 
-/* Attendee detail column styling */
+
 .attendee-cell {
   display: flex;
   align-items: center;
@@ -527,7 +527,7 @@
   gap: 5px;
 }
 
-/* Company details */
+
 .company-cell {
   display: flex;
   flex-direction: column;
@@ -547,7 +547,7 @@
   gap: 5px;
 }
 
-/* Country tag */
+
 .country-tag {
   background-color: #0f1726;
   border: 1px solid #1e293b;
@@ -561,14 +561,14 @@
   gap: 6px;
 }
 
-/* Inviter text */
+
 .inviter-text {
   color: #cbd5e1;
   font-weight: 500;
   font-size: 13px;
 }
 
-/* Date Registered */
+
 .date-text {
   color: #718096;
   font-size: 12px;
@@ -577,7 +577,7 @@
   gap: 5px;
 }
 
-/* Status Badges */
+
 .status-badge {
   display: inline-flex;
   align-items: center;
@@ -620,7 +620,7 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Action cell & buttons */
+
 .actions-header {
   text-align: right !important;
 }
@@ -688,7 +688,7 @@
   border-color: rgba(229, 62, 62, 0.3);
 }
 
-/* No records template */
+
 .no-records {
   text-align: center;
   padding: 60px 20px;
@@ -712,7 +712,7 @@
   font-size: 14px;
 }
 
-/* Footer elements */
+
 .admin-footer {
   background-color: #05070a;
   border-top: 1px solid #121926;
@@ -726,7 +726,7 @@
   color: #4a5568;
 }
 
-/* Toast styling */
+
 .admin-toast {
   position: fixed;
   top: 30px;
@@ -813,12 +813,12 @@
   to { width: 0%; }
 }
 
-/* Mobile cards elements - initially hidden */
+
 .mobile-cards-grid {
   display: none;
 }
 
-/* Responsive Breakpoints */
+
 @media (max-width: 1024px) {
   .table-wrapper {
     display: none;
@@ -988,3 +988,164 @@
     max-width: calc(100% - 40px);
   }
 }
+
+.email-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20000;
+  padding: 20px;
+  animation: fadeIn 0.25s ease-out;
+}
+
+.email-modal-card {
+  background-color: #0b0f19;
+  border: 1px solid #1a253c;
+  width: 100%;
+  max-width: 580px;
+  border-radius: 8px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  animation: scaleIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.email-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 24px;
+  border-bottom: 1px solid #1a253c;
+  background: rgba(26, 37, 60, 0.2);
+}
+
+.email-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.email-modal-title h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #00ca9d;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.email-close-btn {
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #718096;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.email-close-btn:hover {
+  color: #ef58dc;
+}
+
+.email-modal-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.email-meta-row {
+  display: flex;
+  font-size: 14px;
+}
+
+.meta-label {
+  color: #718096;
+  width: 80px;
+  font-weight: 600;
+}
+
+.meta-value {
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.email-divider {
+  border: 0;
+  border-top: 1px solid #1a253c;
+  margin: 10px 0;
+}
+
+.email-body-content {
+  background-color: #05070a;
+  border: 1px solid #151c2c;
+  border-radius: 6px;
+  padding: 16px;
+  font-family: inherit;
+  font-size: 13.5px;
+  color: #cbd5e1;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  text-align: left;
+}
+
+.email-body-content p {
+  margin: 0 0 10px 0;
+}
+
+.email-body-content p:last-child {
+  margin-bottom: 0;
+}
+
+.email-modal-footer {
+  padding: 18px 24px;
+  border-top: 1px solid #1a253c;
+  display: flex;
+  justify-content: flex-end;
+  background: rgba(26, 37, 60, 0.2);
+}
+
+.btn-ok {
+  background: #00ca9d;
+  color: #0b0f19;
+  border: none;
+  padding: 10px 24px;
+  font-weight: 700;
+  font-size: 13px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.btn-ok:hover {
+  background: #00e0b0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+

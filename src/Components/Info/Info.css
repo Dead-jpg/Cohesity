@@ -52,7 +52,7 @@ body {
     color: #111;
 }
 
-/* Info Section Responsiveness */
+
 @media (max-width: 768px) {
     .info {
         padding: 60px 20px;
