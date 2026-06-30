@@ -400,13 +400,15 @@ Cohesity Catalyst Team`;
                                                     </span>
                                                 </div>
                                             </div>
-                                            <button
-                                                className="mobile-delete-btn"
-                                                onClick={() => deleteRegistration(reg.id)}
-                                                title="Delete Record"
-                                            >
-                                                <FaTrashAlt />
-                                            </button>
+                                            {reg.status === "Disapproved" && (
+                                                <button
+                                                    className="mobile-delete-btn"
+                                                    onClick={() => handleDelete(reg.id, `${reg.firstName} ${reg.lastName}`)}
+                                                    title="Delete Record"
+                                                >
+                                                    <FaTrashAlt />
+                                                </button>
+                                            )}
                                         </div>
 
                                         <div className="mobile-card-body">
