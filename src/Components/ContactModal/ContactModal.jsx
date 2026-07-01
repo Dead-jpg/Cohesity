@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./ContactModal.css";
 import { addContactMessage } from "../../utils/db";
-import { logError } from "../../utils/logger";
+
 import {
   isValidName,
   isValidCompany,
@@ -116,7 +116,7 @@ const ContactModal = ({ open, onClose }) => {
     try {
       await addContactMessage(formData);
     } catch (error) {
-      logError("Contact API delivery failed: " + (error?.message || error));
+      console.warn("API delivery failed, using offline fallback", error);
     }
 
     // Submit to Web3Forms for email notification
@@ -133,7 +133,7 @@ const ContactModal = ({ open, onClose }) => {
         body: web3Data
       });
     } catch (err) {
-      logError("Web3Forms submission failed: " + (err?.message || err));
+      console.error("Web3Forms submission failed:", err);
     }
 
     setIsSubmitting(false);

@@ -18,7 +18,7 @@ import {
 } from "../../utils/db";
 import "./Admin.css";
 import Banner1 from "../../assets/banner1.png";
-import { logError } from "../../utils/logger";
+
 
 const Admin = () => {
     const [registrations, setRegistrations] = useState([]);
@@ -41,7 +41,7 @@ const Admin = () => {
 
                 setRegistrations(data.reverse());
             } catch (error) {
-                logError("Failed to fetch registrations: " + (error?.message || error));
+                console.error("Failed to load registrations:", error);
                 triggerNotification("Failed to fetch registrations from API server.", "error");
             }
         };
@@ -101,7 +101,7 @@ Cohesity Catalyst Team`;
                 })
                 .catch(e => console.error("EmailJS error:", e));
         } catch (error) {
-            logError("Failed to send approval email: " + (error?.message || error));
+            console.error("Failed to send approval email:", error);
         }
     };
 
@@ -153,7 +153,7 @@ Cohesity Catalyst Team`;
                 })
                 .catch(e => console.error("EmailJS error:", e));
         } catch (error) {
-            logError("Failed to send disapproval email: " + (error?.message || error));
+            console.error("Failed to send disapproval email:", error);
         }
     };
 
@@ -170,7 +170,7 @@ Cohesity Catalyst Team`;
                 sendApprovalEmail(reg);
             }
         } catch (error) {
-            logError("Failed to approve " + name + ": " + (error?.message || error));
+            console.error("Failed to approve:", error);
             triggerNotification(`Failed to approve ${name}.`, "error");
         }
     };
@@ -187,7 +187,7 @@ Cohesity Catalyst Team`;
                 sendDisapprovalEmail(reg);
             }
         } catch (error) {
-            logError("Failed to disapprove " + name + ": " + (error?.message || error));
+            console.error("Failed to disapprove:", error);
             triggerNotification(`Failed to disapprove ${name}.`, "error");
         }
     };
@@ -198,7 +198,7 @@ Cohesity Catalyst Team`;
                 setRegistrations((prev) => prev.filter((reg) => reg.id !== id));
                 triggerNotification(`Deleted registration for ${name}.`, "error");
             } catch (error) {
-                logError("Failed to delete registration for " + name + ": " + (error?.message || error));
+                console.error("Failed to delete registration:", error);
                 triggerNotification(`Failed to delete ${name}.`, "error");
             }
         }
