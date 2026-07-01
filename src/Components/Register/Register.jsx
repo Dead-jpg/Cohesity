@@ -11,6 +11,7 @@ import {
   validatePhoneNumber
 } from "../../utils/validation";
 import Banner1 from "../../assets/banner1.png";
+import { logError } from "../../utils/logger";
 
 const Register = ({ open, onClose }) => {
   const [formerror, setformerrors] = useState({});
@@ -34,7 +35,7 @@ const Register = ({ open, onClose }) => {
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
-      // eslint-disable-next-line react-hooks/set-state-in-effect
+
       setFormData({
         firstName: "",
         lastName: "",
@@ -217,7 +218,7 @@ const Register = ({ open, onClose }) => {
         setformerrors({});
       }, 2000);
     } catch (error) {
-      console.error("Failed to register:", error);
+      logError("Failed to register: " + (error?.message || error));
       setIsSubmitting(false);
       setSuccessMessage(
         "Registration failed. Please make sure the API server is running."
