@@ -78,10 +78,14 @@ const Register = ({ open, onClose }) => {
 
     if (!values.firstName.trim()) {
       error.firstName = 'The question "First Name" is required.';
+    } else if (!/^[\p{L}\s\-'.]+$/u.test(values.firstName.trim())) {
+      error.firstName = "First name must only contain letters, spaces, hyphens, dots, and apostrophes.";
     }
 
     if (!values.lastName.trim()) {
       error.lastName = 'The question "Last Name" is required.';
+    } else if (!/^[\p{L}\s\-'.]+$/u.test(values.lastName.trim())) {
+      error.lastName = "Last name must only contain letters, spaces, hyphens, dots, and apostrophes.";
     }
 
     if (!values.email.trim()) {
@@ -105,10 +109,14 @@ const Register = ({ open, onClose }) => {
 
     if (!values.company.trim()) {
       error.company = 'The question "Company" is required.';
+    } else if (!/^[\p{L}\p{N}\s\-',./()&]+$/u.test(values.company.trim())) {
+      error.company = "Company name must only contain letters, numbers, spaces, and basic punctuation (& , . - ' / ()).";
     }
 
     if (!values.jobTitle.trim()) {
       error.jobTitle = 'The question "Job Title" is required.';
+    } else if (!/^[\p{L}\p{N}\s\-',./()]+$/u.test(values.jobTitle.trim())) {
+      error.jobTitle = "Job title must only contain letters, numbers, spaces, and basic punctuation (, . - ' / ()).";
     }
 
     if (!values.phoneNumber.trim()) {
@@ -130,12 +138,18 @@ const Register = ({ open, onClose }) => {
 
     if (!values.country) {
       error.country = 'The question "Country" is required.';
-    } else if (values.country === "Other" && (!values.otherCountry || !values.otherCountry.trim())) {
-      error.otherCountry = "Please enter your country.";
+    } else if (values.country === "Other") {
+      if (!values.otherCountry || !values.otherCountry.trim()) {
+        error.otherCountry = "Please enter your country.";
+      } else if (!/^[\p{L}\s\-'.()]+$/u.test(values.otherCountry.trim())) {
+        error.otherCountry = "Country name must only contain letters, spaces, hyphens, dots, and parentheses.";
+      }
     }
 
     if (!values.invitedBy.trim()) {
       error.invitedBy = 'The question "Please type the representative and/or company that invited you below" is required.';
+    } else if (!/^[\p{L}\p{N}\s\-',./()&]+$/u.test(values.invitedBy.trim())) {
+      error.invitedBy = "Invited by must only contain letters, numbers, spaces, and basic punctuation (& , . - ' / ()).";
     }
 
     return error;
