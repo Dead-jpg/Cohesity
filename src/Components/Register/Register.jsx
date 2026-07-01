@@ -34,7 +34,6 @@ const Register = ({ open, onClose }) => {
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
-
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setFormData({
         firstName: "",
