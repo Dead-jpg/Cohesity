@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Banner1 from "../../assets/banner1.png";
 import ContactModal from "../ContactModal/ContactModal";
 import "./Footer.css";

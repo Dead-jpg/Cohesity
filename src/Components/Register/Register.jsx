@@ -1,6 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./Register.css";
 import { addRegistration, getRegistrations } from "../../utils/db";
+import {
+  isValidName,
+  isValidCompany,
+  isValidJobTitle,
+  isValidInvitedBy,
+  isValidCountry,
+  validateEmail,
+  validatePhoneNumber
+} from "../../utils/validation";
 import Banner1 from "../../assets/banner1.png";
 
 const Register = ({ open, onClose }) => {
@@ -26,6 +35,7 @@ const Register = ({ open, onClose }) => {
     if (open) {
       document.body.style.overflow = "hidden";
 
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFormData({
         firstName: "",
         lastName: "",
@@ -78,61 +88,43 @@ const Register = ({ open, onClose }) => {
 
     if (!values.firstName.trim()) {
       error.firstName = 'The question "First Name" is required.';
-    } else if (!/^[\p{L}\s\-'.]+$/u.test(values.firstName.trim())) {
+    } else if (!isValidName(values.firstName)) {
       error.firstName = "First name must only contain letters, spaces, hyphens, dots, and apostrophes.";
     }
 
     if (!values.lastName.trim()) {
       error.lastName = 'The question "Last Name" is required.';
-    } else if (!/^[\p{L}\s\-'.]+$/u.test(values.lastName.trim())) {
+    } else if (!isValidName(values.lastName)) {
       error.lastName = "Last name must only contain letters, spaces, hyphens, dots, and apostrophes.";
     }
 
-    if (!values.email.trim()) {
-      error.email = 'The question "Corporate Email" is required.';
-    } else {
-      const emailVal = values.email.trim();
-      if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(emailVal)) {
-        error.email = "Please enter a valid email address";
+    const emailValidation = validateEmail(values.email, true);
+    if (!emailValidation.isValid) {
+      if (values.email.trim() === "") {
+        error.email = 'The question "Corporate Email" is required.';
       } else {
-        const domain = emailVal.substring(emailVal.lastIndexOf("@") + 1).toLowerCase();
-        const personalDomains = [
-          "yahoo.com", "hotmail.com", "outlook.com", "live.com",
-          "aol.com", "icloud.com", "zoho.com", "protonmail.com", "yandex.com",
-          "mail.com", "gmx.com", "rediffmail.com", "yahoo.co.in"
-        ];
-        if (personalDomains.includes(domain)) {
-          error.email = "Please enter a valid corporate email address.";
-        }
+        error.email = emailValidation.error;
       }
     }
 
     if (!values.company.trim()) {
       error.company = 'The question "Company" is required.';
-    } else if (!/^[\p{L}\p{N}\s\-',./()&]+$/u.test(values.company.trim())) {
+    } else if (!isValidCompany(values.company)) {
       error.company = "Company name must only contain letters, numbers, spaces, and basic punctuation (& , . - ' / ()).";
     }
 
     if (!values.jobTitle.trim()) {
       error.jobTitle = 'The question "Job Title" is required.';
-    } else if (!/^[\p{L}\p{N}\s\-',./()]+$/u.test(values.jobTitle.trim())) {
+    } else if (!isValidJobTitle(values.jobTitle)) {
       error.jobTitle = "Job title must only contain letters, numbers, spaces, and basic punctuation (, . - ' / ()).";
     }
 
-    if (!values.phoneNumber.trim()) {
-      error.phoneNumber = 'The question "Phone Number" is required.';
-    } else {
-      const phoneVal = values.phoneNumber.trim();
-      const digits = phoneVal.replace(/\D/g, "");
-      const isRepeating = /^(\d)\1+$/.test(digits);
-      const isSequential = "01234567890123456789".includes(digits) || "98765432109876543210".includes(digits);
-
-      if (!/^\+?[0-9\s\-()]+$/.test(phoneVal)) {
-        error.phoneNumber = "Please enter a valid phone number.";
-      } else if (digits.length < 8 || digits.length > 15) {
-        error.phoneNumber = "Please enter a valid phone number (between 8 and 15 digits).";
-      } else if (isRepeating || isSequential) {
-        error.phoneNumber = "Please enter a valid, active phone number.";
+    const phoneValidation = validatePhoneNumber(values.phoneNumber);
+    if (!phoneValidation.isValid) {
+      if (values.phoneNumber.trim() === "") {
+        error.phoneNumber = 'The question "Phone Number" is required.';
+      } else {
+        error.phoneNumber = phoneValidation.error;
       }
     }
 
@@ -141,14 +133,14 @@ const Register = ({ open, onClose }) => {
     } else if (values.country === "Other") {
       if (!values.otherCountry || !values.otherCountry.trim()) {
         error.otherCountry = "Please enter your country.";
-      } else if (!/^[\p{L}\s\-'.()]+$/u.test(values.otherCountry.trim())) {
+      } else if (!isValidCountry(values.otherCountry)) {
         error.otherCountry = "Country name must only contain letters, spaces, hyphens, dots, and parentheses.";
       }
     }
 
     if (!values.invitedBy.trim()) {
       error.invitedBy = 'The question "Please type the representative and/or company that invited you below" is required.';
-    } else if (!/^[\p{L}\p{N}\s\-',./()&]+$/u.test(values.invitedBy.trim())) {
+    } else if (!isValidInvitedBy(values.invitedBy)) {
       error.invitedBy = "Invited by must only contain letters, numbers, spaces, and basic punctuation (& , . - ' / ()).";
     }
 

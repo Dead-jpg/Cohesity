@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router";
+import { useState, useEffect } from "react";
 import {
     FaUserCheck,
     FaUserTimes,
     FaHourglassHalf,
     FaSearch,
-    FaArrowLeft,
     FaTrashAlt,
     FaCalendarAlt,
     FaBuilding,
@@ -28,6 +26,13 @@ const Admin = () => {
     const [notification, setNotification] = useState(null);
     const [emailSentInfo, setEmailSentInfo] = useState(null);
 
+    const triggerNotification = (message, type = "success") => {
+        setNotification({ message, type });
+        setTimeout(() => {
+            setNotification(null);
+        }, 4000);
+    };
+
     useEffect(() => {
         const fetchRegistrations = async () => {
             try {
@@ -41,13 +46,6 @@ const Admin = () => {
         };
         fetchRegistrations();
     }, []);
-
-    const triggerNotification = (message, type = "success") => {
-        setNotification({ message, type });
-        setTimeout(() => {
-            setNotification(null);
-        }, 4000);
-    };
 
     const sendApprovalEmail = async (reg) => {
         if (!reg || !reg.email) return;

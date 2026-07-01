@@ -1,6 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./ContactModal.css";
 import { addContactMessage } from "../../utils/db";
+import {
+  isValidName,
+  isValidCompany,
+  validateEmail
+} from "../../utils/validation";
 
 const ContactModal = ({ open, onClose }) => {
   const [formData, setFormData] = useState({
@@ -23,6 +28,7 @@ const ContactModal = ({ open, onClose }) => {
     if (open) {
       document.body.style.overflow = "hidden";
 
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFormData({
         name: "",
         email: "",
@@ -69,14 +75,22 @@ const ContactModal = ({ open, onClose }) => {
 
   const validate = () => {
     const errors = {};
-    if (!formData.email.trim()) {
-      errors.email = "Email is required";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(formData.email.trim())) {
-      errors.email = "Please enter a valid email address";
+    
+    if (formData.name.trim() && !isValidName(formData.name)) {
+      errors.name = "Name must only contain letters, spaces, hyphens, dots, and apostrophes.";
+    }
+
+    const emailValidation = validateEmail(formData.email, false);
+    if (!emailValidation.isValid) {
+      errors.email = emailValidation.error;
+    }
+
+    if (formData.company.trim() && !isValidCompany(formData.company)) {
+      errors.company = "Company name must only contain letters, numbers, spaces, and basic punctuation.";
     }
 
     if (!formData.note.trim()) {
-      errors.note = "Note is required";
+      errors.note = "Note is required.";
     }
 
     if (!captchaChecked) {
@@ -100,35 +114,29 @@ const ContactModal = ({ open, onClose }) => {
 
     try {
       await addContactMessage(formData);
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setSubmitSuccess(true);
-      }, 1500);
     } catch (error) {
       console.warn("API delivery failed, using offline fallback", error);
-
-      setTimeout(() => {
-        setIsSubmitting(false);
-        setSubmitSuccess(true);
-      }, 1500);
     }
 
+    // Submit to Web3Forms for email notification
+    try {
+      const web3Data = new FormData();
+      web3Data.append("access_key", "ff18c819-ef34-494d-be19-7e3850ef6d9e");
+      web3Data.append("name", formData.name);
+      web3Data.append("email", formData.email);
+      web3Data.append("company", formData.company);
+      web3Data.append("note", formData.note);
 
-    const formData = new FormData(e.target);
-    formData.append("access_key", "ff18c819-ef34-494d-be19-7e3850ef6d9e");
-
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData
-    });
-
-    const data = await response.json();
-    if (data.success) {
-      setResult("Form Submitted Successfully");
-      e.target.reset();
-    } else {
-      setResult("Error");
+      await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: web3Data
+      });
+    } catch (err) {
+      console.error("Web3Forms submission failed:", err);
     }
+
+    setIsSubmitting(false);
+    setSubmitSuccess(true);
   };
 
   return (
@@ -183,12 +191,15 @@ const ContactModal = ({ open, onClose }) => {
                 <input
                   type="text"
                   name="name"
-                  className="contact-input"
+                  className={`contact-input ${formErrors.name ? "input-error" : ""}`}
                   placeholder="Enter your name"
                   value={formData.name}
                   onChange={handleChange}
                   disabled={isSubmitting}
                 />
+                {formErrors.name && (
+                  <span className="contact-error-msg">{formErrors.name}</span>
+                )}
               </div>
 
               <div className="contact-form-group">
@@ -214,12 +225,15 @@ const ContactModal = ({ open, onClose }) => {
                 <input
                   type="text"
                   name="company"
-                  className="contact-input"
+                  className={`contact-input ${formErrors.company ? "input-error" : ""}`}
                   placeholder="Enter your company"
                   value={formData.company}
                   onChange={handleChange}
                   disabled={isSubmitting}
                 />
+                {formErrors.company && (
+                  <span className="contact-error-msg">{formErrors.company}</span>
+                )}
               </div>
 
               <div className="contact-form-group">
