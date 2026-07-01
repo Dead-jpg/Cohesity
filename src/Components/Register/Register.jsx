@@ -89,13 +89,13 @@ const Register = ({ open, onClose }) => {
     if (!values.firstName.trim()) {
       error.firstName = 'The question "First Name" is required.';
     } else if (!isValidName(values.firstName)) {
-      error.firstName = "First name must only contain letters, spaces, hyphens, dots, and apostrophes.";
+      error.firstName = "First name should contain only letters, spaces and hyphens.";
     }
 
     if (!values.lastName.trim()) {
       error.lastName = 'The question "Last Name" is required.';
     } else if (!isValidName(values.lastName)) {
-      error.lastName = "Last name must only contain letters, spaces, hyphens, dots, and apostrophes.";
+      error.lastName = "Last name should contain only letters, spaces and hyphens.";
     }
 
     const emailValidation = validateEmail(values.email, true);
@@ -110,13 +110,13 @@ const Register = ({ open, onClose }) => {
     if (!values.company.trim()) {
       error.company = 'The question "Company" is required.';
     } else if (!isValidCompany(values.company)) {
-      error.company = "Company name must only contain letters, numbers, spaces, and basic punctuation (& , . - ' / ()).";
+      error.company = "Company name should contain only letters, spaces and hyphens.";
     }
 
     if (!values.jobTitle.trim()) {
       error.jobTitle = 'The question "Job Title" is required.';
     } else if (!isValidJobTitle(values.jobTitle)) {
-      error.jobTitle = "Job title must only contain letters, numbers, spaces, and basic punctuation (, . - ' / ()).";
+      error.jobTitle = "Job title should contain only letters, spaces and hyphens.";
     }
 
     const phoneValidation = validatePhoneNumber(values.phoneNumber);
@@ -141,7 +141,7 @@ const Register = ({ open, onClose }) => {
     if (!values.invitedBy.trim()) {
       error.invitedBy = 'The question "Please type the representative and/or company that invited you below" is required.';
     } else if (!isValidInvitedBy(values.invitedBy)) {
-      error.invitedBy = "Invited by must only contain letters, numbers, spaces, and basic punctuation (& , . - ' / ()).";
+      error.invitedBy = "Invited by must only contain letters, numbers, spaces, and basic punctuation.";
     }
 
     return error;

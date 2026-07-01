@@ -11,7 +11,7 @@ const Footer = () => {
     setShowCalendarOptions(!showCalendarOptions);
   };
 
-  
+
   const startTime = "20260703T033000Z";
   const endTime = "20260703T083000Z";
   const title = "Catalyst On Tour: Mumbai";
@@ -68,7 +68,7 @@ const Footer = () => {
         </div>
       </footer>
 
-      
+
       <div className="footer-grey-bar">
         <div className="footer-grey-container">
           <div className="footer-grey-right">
@@ -88,20 +88,20 @@ const Footer = () => {
                 </a>
               </div>
 
-              <button 
-                className="calendar-trigger-btn" 
-                onClick={toggleCalendar} 
+              <button
+                className="calendar-trigger-btn"
+                onClick={toggleCalendar}
                 aria-label="Toggle calendar options"
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  
-                  <rect x="7" y="1" width="2" height="5" rx="1" fill="white"/>
-                  <rect x="15" y="1" width="2" height="5" rx="1" fill="white"/>
-                  
+
+                  <rect x="7" y="1" width="2" height="5" rx="1" fill="white" />
+                  <rect x="15" y="1" width="2" height="5" rx="1" fill="white" />
+
                   <rect x="4" y="4" width="16" height="17" rx="2" fill="white" />
-                  
+
                   <line x1="4" y1="9" x2="20" y2="9" stroke="#161616" strokeWidth="1.5" />
-                  
+
                   <text x="12" y="17" fill="#161616" fontSize="8" fontWeight="bold" textAnchor="middle" fontFamily="'Inter', 'Arial', sans-serif">1</text>
                 </svg>
               </button>
