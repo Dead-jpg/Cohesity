@@ -1077,6 +1077,28 @@
   gap: 12px;
   max-height: 60vh;
   overflow-y: auto;
+
+  /* Firefox Support */
+  scrollbar-width: thin;
+  scrollbar-color: #1f2c42 #05070a;
+}
+
+.email-modal-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.email-modal-body::-webkit-scrollbar-track {
+  background: #05070a;
+  border-radius: 4px;
+}
+
+.email-modal-body::-webkit-scrollbar-thumb {
+  background: #1f2c42;
+  border-radius: 4px;
+}
+
+.email-modal-body::-webkit-scrollbar-thumb:hover {
+  background: #00ca9d;
 }
 
 .email-meta-row {

@@ -15,13 +15,13 @@ import {
 const customIcon = L.divIcon({
     className: "custom-pin-container",
     html: `<div class="custom-pin-marker"></div>`,
-    iconSize: [36, 36],
-    iconAnchor: [18, 36],
-    popupAnchor: [0, -36]
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+    popupAnchor: [0, -40]
 });
 
 
-const MapLifecycleManager = ({ position }) => {
+const MapLifecycleManager = ({ center }) => {
     const map = useMap();
 
     useEffect(() => {
@@ -31,7 +31,7 @@ const MapLifecycleManager = ({ position }) => {
 
         const resizeObserver = new ResizeObserver(() => {
             map.invalidateSize();
-            map.setView(position, map.getZoom());
+            map.setView(center, map.getZoom());
         });
         resizeObserver.observe(container);
 
@@ -41,7 +41,7 @@ const MapLifecycleManager = ({ position }) => {
                     if (entry.isIntersecting) {
                         setTimeout(() => {
                             map.invalidateSize();
-                            map.setView(position, map.getZoom());
+                            map.setView(center, map.getZoom());
                         }, 100);
                     }
                 });
@@ -50,15 +50,15 @@ const MapLifecycleManager = ({ position }) => {
         );
         intersectionObserver.observe(container);
 
-        
+
         const timer1 = setTimeout(() => {
             map.invalidateSize();
-            map.setView(position, map.getZoom());
+            map.setView(center, map.getZoom());
         }, 300);
 
         const timer2 = setTimeout(() => {
             map.invalidateSize();
-            map.setView(position, map.getZoom());
+            map.setView(center, map.getZoom());
         }, 1000);
 
         return () => {
@@ -67,21 +67,24 @@ const MapLifecycleManager = ({ position }) => {
             clearTimeout(timer1);
             clearTimeout(timer2);
         };
-    }, [map, position]);
+    }, [map, center]);
 
     return null;
 };
 
 const Map = () => {
-    const position = [19.0674785, 72.8664663];
+    const position = [19.0674785, 72.8690412];
+
+
+    const mapCenter = [position[0] + 0.0006, position[1]];
 
     return (
         <section className="custom-map-section" id="venue">
             <div className="custom-map-container">
                 <div className="custom-map-wrapper">
                     <MapContainer
-                        center={position}
-                        zoom={20}
+                        center={mapCenter}
+                        zoom={16}
                         scrollWheelZoom={false}
                         className="leaflet-map-element"
                     >
@@ -97,7 +100,7 @@ const Map = () => {
                             </Popup>
                         </Marker>
 
-                        <MapLifecycleManager position={position} />
+                        <MapLifecycleManager center={mapCenter} />
                     </MapContainer>
                 </div>
 

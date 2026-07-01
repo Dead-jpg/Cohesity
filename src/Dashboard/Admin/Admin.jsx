@@ -87,6 +87,7 @@ Cohesity Catalyst Team`;
                     template_params: {
                         to_name: `${reg.firstName} ${reg.lastName}`,
                         to_email: reg.email,
+                        subject: "Registration Approved - Catalyst Tour: Mumbai",
                         message: emailBody
                     }
                 })
@@ -102,6 +103,58 @@ Cohesity Catalyst Team`;
             .catch(e => console.error("EmailJS error:", e));
         } catch (error) {
             console.error("Failed to send approval email:", error);
+        }
+    };
+
+    const sendDisapprovalEmail = async (reg) => {
+        if (!reg || !reg.email) return;
+        try {
+            const emailBody = `Dear ${reg.firstName} ${reg.lastName},
+
+We regret to inform you that your registration status for Catalyst Tour: Mumbai has been updated to Disapproved.
+
+We sincerely apologize for the inconvenience from our side, but your registration was disapproved due to Capacity constraints or other valid logistical factors.
+
+Thank you for your interest and understanding.
+
+Best regards,
+Cohesity Catalyst Team`;
+
+            setEmailSentInfo({
+                recipient: reg.email,
+                subject: "Registration Update: Catalyst Tour Mumbai",
+                body: emailBody,
+                previewUrl: null
+            });
+
+            fetch('https://api.emailjs.com/api/v1.0/email/send', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    service_id: 'service_7hc5stu',
+                    template_id: 'template_p44ch7q',
+                    user_id: 'dZOxFJZEqZRwwmVi3',
+                    template_params: {
+                        to_name: `${reg.firstName} ${reg.lastName}`,
+                        to_email: reg.email,
+                        subject: "Registration Disapproved - Catalyst Tour: Mumbai",
+                        message: emailBody
+                    }
+                })
+            })
+            .then(async (response) => {
+                if (!response.ok) {
+                    const text = await response.text();
+                    console.error("EmailJS failed with error:", text);
+                } else {
+                    console.log("EmailJS sent successfully!");
+                }
+            })
+            .catch(e => console.error("EmailJS error:", e));
+        } catch (error) {
+            console.error("Failed to send disapproval email:", error);
         }
     };
 
@@ -129,6 +182,11 @@ Cohesity Catalyst Team`;
                 prev.map((reg) => (reg.id === id ? { ...reg, status: "Disapproved" } : reg))
             );
             triggerNotification(`${name} has been disapproved.`, "warning");
+
+            const reg = registrations.find((r) => r.id === id);
+            if (reg) {
+                sendDisapprovalEmail(reg);
+            }
         } catch (error) {
             console.error("Failed to disapprove:", error);
             triggerNotification(`Failed to disapprove ${name}.`, "error");
@@ -356,7 +414,7 @@ Cohesity Catalyst Team`;
                                                                 <FaUserCheck /> Approve
                                                             </button>
                                                         )}
-                                                        {reg.status === "Pending" && (
+                                                        {reg.status !== "Disapproved" && (
                                                             <button
                                                                 className="action-btn disapprove"
                                                                 onClick={() => handleDisapprove(reg.id, `${reg.firstName} ${reg.lastName}`)}
@@ -447,7 +505,7 @@ Cohesity Catalyst Team`;
                                                     <FaUserCheck /> Approve
                                                 </button>
                                             )}
-                                            {reg.status === "Pending" && (
+                                            {reg.status !== "Disapproved" && (
                                                 <button
                                                     className="action-btn disapprove"
                                                     onClick={() => handleDisapprove(reg.id, `${reg.firstName} ${reg.lastName}`)}
