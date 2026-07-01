@@ -92,15 +92,15 @@ Cohesity Catalyst Team`;
                     }
                 })
             })
-            .then(async (response) => {
-                if (!response.ok) {
-                    const text = await response.text();
-                    console.error("EmailJS failed with error:", text);
-                } else {
-                    console.log("EmailJS sent successfully!");
-                }
-            })
-            .catch(e => console.error("EmailJS error:", e));
+                .then(async (response) => {
+                    if (!response.ok) {
+                        const text = await response.text();
+                        console.error("EmailJS failed with error:", text);
+                    } else {
+                        console.log("EmailJS sent successfully!");
+                    }
+                })
+                .catch(e => console.error("EmailJS error:", e));
         } catch (error) {
             console.error("Failed to send approval email:", error);
         }
@@ -144,15 +144,15 @@ Cohesity Catalyst Team`;
                     }
                 })
             })
-            .then(async (response) => {
-                if (!response.ok) {
-                    const text = await response.text();
-                    console.error("EmailJS failed with error:", text);
-                } else {
-                    console.log("EmailJS sent successfully!");
-                }
-            })
-            .catch(e => console.error("EmailJS error:", e));
+                .then(async (response) => {
+                    if (!response.ok) {
+                        const text = await response.text();
+                        console.error("EmailJS failed with error:", text);
+                    } else {
+                        console.log("EmailJS sent successfully!");
+                    }
+                })
+                .catch(e => console.error("EmailJS error:", e));
         } catch (error) {
             console.error("Failed to send disapproval email:", error);
         }
@@ -160,7 +160,7 @@ Cohesity Catalyst Team`;
 
     const handleApprove = async (id, name) => {
         try {
-            await updateRegistrationStatus(id, "Approved"); 
+            await updateRegistrationStatus(id, "Approved");
             setRegistrations((prev) =>
                 prev.map((reg) => (reg.id === id ? { ...reg, status: "Approved" } : reg))
             );
@@ -264,11 +264,6 @@ Cohesity Catalyst Team`;
                             <span className="badge-tag">ADMIN CONTROL</span>
                         </div>
                     </div>
-                    <div className="admin-header-actions">
-                        <Link to="/" className="btn-back">
-                            <FaArrowLeft /> BACK TO SITE
-                        </Link>
-                    </div>
                 </div>
             </header>
 
@@ -280,7 +275,7 @@ Cohesity Catalyst Team`;
                     </div>
                 </section>
 
-                
+
                 <section className="control-panel">
                     <div className="search-box">
                         <FaSearch className="search-icon" />
@@ -317,7 +312,7 @@ Cohesity Catalyst Team`;
                     </div>
                 </section>
 
-                
+
                 <section className="table-container">
                     {filteredRegistrations.length === 0 ? (
                         <div className="no-records">
@@ -327,7 +322,7 @@ Cohesity Catalyst Team`;
                         </div>
                     ) : (
                         <>
-                            
+
                             <div className="table-wrapper">
                                 <table className="admin-table">
                                     <thead>
@@ -344,7 +339,7 @@ Cohesity Catalyst Team`;
                                     <tbody>
                                         {filteredRegistrations.map((reg) => (
                                             <tr key={reg.id} className={`table-row row-${reg.status.toLowerCase()}`}>
-                                                
+
                                                 <td>
                                                     <div className="attendee-cell">
                                                         <span className="avatar">
@@ -363,7 +358,7 @@ Cohesity Catalyst Team`;
                                                     </div>
                                                 </td>
 
-                                                
+
                                                 <td>
                                                     <div className="company-cell">
                                                         <div className="job-title">{reg.jobTitle}</div>
@@ -373,26 +368,26 @@ Cohesity Catalyst Team`;
                                                     </div>
                                                 </td>
 
-                                                
+
                                                 <td>
                                                     <span className="country-tag">
                                                         <FaGlobe /> {reg.country || "N/A"}
                                                     </span>
                                                 </td>
 
-                                                
+
                                                 <td>
                                                     <span className="inviter-text">{reg.invitedBy || "None"}</span>
                                                 </td>
 
-                                                
+
                                                 <td>
                                                     <span className="date-text">
                                                         <FaCalendarAlt /> {formatDate(reg.registeredAt)}
                                                     </span>
                                                 </td>
 
-                                                
+
                                                 <td>
                                                     <span className={`status-badge badge-${reg.status.toLowerCase()}`}>
                                                         {reg.status === "Pending" && <FaHourglassHalf className="spin-slow" />}
@@ -441,7 +436,7 @@ Cohesity Catalyst Team`;
                                 </table>
                             </div>
 
-                            
+
                             <div className="mobile-cards-grid">
                                 {filteredRegistrations.map((reg) => (
                                     <div key={reg.id} className={`mobile-card card-${reg.status.toLowerCase()}`}>
@@ -556,10 +551,10 @@ Cohesity Catalyst Team`;
                         </div>
                         <div className="email-modal-footer" style={{ gap: '12px' }}>
                             {emailSentInfo.previewUrl && (
-                                <a 
-                                    href={emailSentInfo.previewUrl} 
-                                    target="_blank" 
-                                    rel="noopener noreferrer" 
+                                <a
+                                    href={emailSentInfo.previewUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     className="btn-preview-link"
                                     style={{
                                         display: 'inline-flex',
