@@ -78,9 +78,6 @@ export const addContactMessage = async (messageData) => {
   }
 
   const result = await response.json();
-
-  // Submit to Web3Forms directly from the browser (client-side)
-  // to prevent Web3Forms from blocking the request with a 403 Forbidden status.
   try {
     const web3Response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
