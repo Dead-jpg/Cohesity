@@ -20,16 +20,45 @@ const ContactModal = ({ open, onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const [captchaChecked, setCaptchaChecked] = useState(false);
-  const [captchaLoading, setCaptchaLoading] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState("");
   const [captchaError, setCaptchaError] = useState("");
 
-
   useEffect(() => {
+    let widgetId;
+    let isMounted = true;
+
+    const renderWidget = () => {
+      if (window.turnstile && isMounted) {
+        try {
+          window.turnstile.ready(() => {
+            if (!isMounted) return;
+            const el = document.getElementById("cf-turnstile-element");
+            if (el) {
+              widgetId = window.turnstile.render("#cf-turnstile-element", {
+                sitekey: import.meta.env.VITE_TURNSTILE_SITE_KEY || "1x00000000000000000000AA",
+                callback: (token) => {
+                  setTurnstileToken(token);
+                  setCaptchaError("");
+                },
+                "error-callback": () => {
+                  setCaptchaError("Captcha verification failed.");
+                  setTurnstileToken("");
+                },
+                "expired-callback": () => {
+                  setCaptchaError("Captcha expired.");
+                  setTurnstileToken("");
+                }
+              });
+            }
+          });
+        } catch (err) {
+          console.error("Turnstile rendering error:", err);
+        }
+      }
+    };
+
     if (open) {
       document.body.style.overflow = "hidden";
-
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setFormData({
         name: "",
         email: "",
@@ -38,15 +67,37 @@ const ContactModal = ({ open, onClose }) => {
       });
       setFormErrors({});
       setSubmitSuccess(false);
-      setCaptchaChecked(false);
-      setCaptchaLoading(false);
+      setTurnstileToken("");
       setCaptchaError("");
+
+      if (window.turnstile) {
+        renderWidget();
+      } else {
+        const interval = setInterval(() => {
+          if (window.turnstile) {
+            clearInterval(interval);
+            renderWidget();
+          }
+        }, 100);
+        return () => {
+          clearInterval(interval);
+          isMounted = false;
+          document.body.style.overflow = "";
+          if (widgetId && window.turnstile) {
+            try { window.turnstile.remove(widgetId); } catch (e) {}
+          }
+        };
+      }
     } else {
       document.body.style.overflow = "";
     }
 
     return () => {
+      isMounted = false;
       document.body.style.overflow = "";
+      if (widgetId && window.turnstile) {
+        try { window.turnstile.remove(widgetId); } catch (e) {}
+      }
     };
   }, [open]);
 
@@ -62,16 +113,6 @@ const ContactModal = ({ open, onClose }) => {
       ...prev,
       [name]: "",
     }));
-  };
-
-  const handleCaptchaClick = () => {
-    if (captchaChecked || captchaLoading) return;
-    setCaptchaLoading(true);
-    setCaptchaError("");
-    setTimeout(() => {
-      setCaptchaLoading(false);
-      setCaptchaChecked(true);
-    }, 1200);
   };
 
   const validate = () => {
@@ -94,7 +135,7 @@ const ContactModal = ({ open, onClose }) => {
       errors.note = "Note is required.";
     }
 
-    if (!captchaChecked) {
+    if (!turnstileToken) {
       setCaptchaError("Please verify that you are not a robot.");
       errors.captcha = true;
     }
@@ -114,30 +155,17 @@ const ContactModal = ({ open, onClose }) => {
     setIsSubmitting(true);
 
     try {
-      await addContactMessage(formData);
-    } catch (error) {
-      console.warn("API delivery failed, using offline fallback", error);
-    }
-
-    // Submit to Web3Forms for email notification
-    try {
-      const web3Data = new FormData();
-      web3Data.append("access_key", "ff18c819-ef34-494d-be19-7e3850ef6d9e");
-      web3Data.append("name", formData.name);
-      web3Data.append("email", formData.email);
-      web3Data.append("company", formData.company);
-      web3Data.append("note", formData.note);
-
-      await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: web3Data
+      await addContactMessage({
+        ...formData,
+        turnstileToken
       });
-    } catch (err) {
-      console.error("Web3Forms submission failed:", err);
+      setIsSubmitting(false);
+      setSubmitSuccess(true);
+    } catch (error) {
+      console.error("Contact form submission failed:", error);
+      setCaptchaError("Failed to submit message. Please try again.");
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(false);
-    setSubmitSuccess(true);
   };
 
   return (
@@ -255,43 +283,8 @@ const ContactModal = ({ open, onClose }) => {
                 )}
               </div>
               <div className="recaptcha-outer-container">
-                <div className="recaptcha-widget">
-                  <div className="recaptcha-left">
-                    <div
-                      className={`recaptcha-checkbox ${captchaChecked ? "verified" : ""} ${captchaLoading ? "loading" : ""}`}
-                      onClick={handleCaptchaClick}
-                    >
-                      {captchaLoading && <div className="recaptcha-spinner"></div>}
-                      {captchaChecked && (
-                        <svg className="recaptcha-check-svg" viewBox="0 0 24 24">
-                          <path
-                            d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"
-                            fill="none"
-                            stroke="#00a854"
-                            strokeWidth="3.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                    <span className="recaptcha-text">I'm not a robot</span>
-                  </div>
-
-                  <div className="recaptcha-right">
-                    <div className="recaptcha-branding">
-                      <svg viewBox="0 0 24 24" className="recaptcha-logo-svg">
-                        <path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4z" fill="#4a90e2" />
-                        <path d="M6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z" fill="#3cba54" />
-                      </svg>
-                      <span className="recaptcha-logo-label">reCAPTCHA</span>
-                    </div>
-                    <div className="recaptcha-links">
-                      <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Privacy</a>
-                      <span> - </span>
-                      <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer">Terms</a>
-                    </div>
-                  </div>
+                <div style={{ display: "flex", justifyContent: "center", minHeight: "65px", marginBottom: "10px" }}>
+                  <div id="cf-turnstile-element"></div>
                 </div>
                 {captchaError && (
                   <span className="contact-error-msg captcha-error">{captchaError}</span>

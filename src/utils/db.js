@@ -77,3 +77,18 @@ export const addContactMessage = async (messageData) => {
   }
   return response.json();
 };
+
+export const sendProxyEmail = async (emailData) => {
+  const response = await fetch(`${BASE_URL}/api/send-email`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(emailData)
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to send email via proxy server");
+  }
+  return response.json();
+};

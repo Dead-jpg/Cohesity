@@ -14,7 +14,8 @@ import {
 import {
     getRegistrations,
     updateRegistrationStatus,
-    deleteRegistration
+    deleteRegistration,
+    sendProxyEmail
 } from "../../utils/db";
 import "./Admin.css";
 import Banner1 from "../../assets/banner1.png";
@@ -74,34 +75,16 @@ Cohesity Catalyst Team`;
                 previewUrl: null
             });
 
-            fetch('https://api.emailjs.com/api/v1.0/email/send', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    service_id: 'service_7hc5stu',
-                    template_id: 'template_p44ch7q',
-                    user_id: 'dZOxFJZEqZRwwmVi3',
-                    template_params: {
-                        to_name: `${reg.firstName} ${reg.lastName}`,
-                        to_email: reg.email,
-                        subject: "Registration Approved - Catalyst Tour: Mumbai",
-                        message: emailBody
-                    }
-                })
-            })
-                .then(async (response) => {
-                    if (!response.ok) {
-                        const text = await response.text();
-                        console.error("EmailJS failed with error:", text);
-                    } else {
-                        console.log("EmailJS sent successfully!");
-                    }
-                })
-                .catch(e => console.error("EmailJS error:", e));
+            await sendProxyEmail({
+                to_name: `${reg.firstName} ${reg.lastName}`,
+                to_email: reg.email,
+                subject: "Registration Approved - Catalyst Tour: Mumbai",
+                message: emailBody
+            });
+            console.log("Email sent successfully!");
         } catch (error) {
             console.error("Failed to send approval email:", error);
+            triggerNotification("Failed to send approval confirmation email.", "error");
         }
     };
 
@@ -126,34 +109,16 @@ Cohesity Catalyst Team`;
                 previewUrl: null
             });
 
-            fetch('https://api.emailjs.com/api/v1.0/email/send', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    service_id: 'service_7hc5stu',
-                    template_id: 'template_p44ch7q',
-                    user_id: 'dZOxFJZEqZRwwmVi3',
-                    template_params: {
-                        to_name: `${reg.firstName} ${reg.lastName}`,
-                        to_email: reg.email,
-                        subject: "Registration Disapproved - Catalyst Tour: Mumbai",
-                        message: emailBody
-                    }
-                })
-            })
-                .then(async (response) => {
-                    if (!response.ok) {
-                        const text = await response.text();
-                        console.error("EmailJS failed with error:", text);
-                    } else {
-                        console.log("EmailJS sent successfully!");
-                    }
-                })
-                .catch(e => console.error("EmailJS error:", e));
+            await sendProxyEmail({
+                to_name: `${reg.firstName} ${reg.lastName}`,
+                to_email: reg.email,
+                subject: "Registration Disapproved - Catalyst Tour: Mumbai",
+                message: emailBody
+            });
+            console.log("Email sent successfully!");
         } catch (error) {
             console.error("Failed to send disapproval email:", error);
+            triggerNotification("Failed to send disapproval update email.", "error");
         }
     };
 
