@@ -1078,7 +1078,7 @@
   max-height: 60vh;
   overflow-y: auto;
 
-  /* Firefox Support */
+  
   scrollbar-width: thin;
   scrollbar-color: #1f2c42 #05070a;
 }
