@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import { logError } from './logger.js';
 
 dotenv.config();
 
@@ -35,6 +36,7 @@ function readDb() {
     const content = fs.readFileSync(DB_FILE, 'utf8');
     return JSON.parse(content);
   } catch (err) {
+    logError("Error reading db file", err);
     console.error("Error reading db file:", err);
     return { registrations: [], contacts: [] };
   }
@@ -49,6 +51,7 @@ function writeDb(data) {
     fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), 'utf8');
     return true;
   } catch (err) {
+    logError("Error writing db file", err);
     console.error("Error writing db file:", err);
     return false;
   }
@@ -120,6 +123,7 @@ async function verifyTurnstileToken(token, ip) {
     const result = await response.json();
     return result.success;
   } catch (error) {
+    logError("Turnstile verification error", error);
     console.error("Turnstile verification error:", error);
     return false;
   }
@@ -339,17 +343,31 @@ app.post('/api/send-email', async (req, res) => {
 
     if (!response.ok) {
       const errorText = await response.text();
+      logError("EmailJS failed: " + errorText);
       console.error("EmailJS failed:", errorText);
       return res.status(500).json({ error: `EmailJS error: ${errorText}` });
     }
 
     res.json({ success: true });
   } catch (error) {
+    logError("Email proxy API error", error);
     console.error("Email proxy API error:", error);
     res.status(500).json({ error: "Failed to send email through proxy server." });
   }
 });
 
+
+app.get('/api/logs', (req, res) => {
+  try {
+    if (!fs.existsSync('error.log')) {
+      return res.send("No error logs recorded yet.");
+    }
+    const logs = fs.readFileSync('error.log', 'utf8');
+    res.type('text/plain').send(logs);
+  } catch (err) {
+    res.status(500).send("Failed to read log file.");
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Secure server running on port ${PORT}`);
