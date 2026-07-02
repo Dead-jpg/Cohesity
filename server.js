@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import helmet from 'helmet';
 import { logError } from './logger.js';
 
 dotenv.config();
@@ -10,7 +11,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const DB_FILE = 'db.json';
 
-
+app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
