@@ -73,9 +73,36 @@ export const addContactMessage = async (messageData) => {
   });
 
   if (!response.ok) {
-    throw new Error("Failed to post contact message to API");
+    const errorData = await response.json();
+    throw new Error(errorData.error || "Failed to post contact message to API");
   }
-  return response.json();
+
+  const result = await response.json();
+
+  // Submit to Web3Forms directly from the browser (client-side)
+  // to prevent Web3Forms from blocking the request with a 403 Forbidden status.
+  try {
+    const web3Response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "ff18c819-ef34-494d-be19-7e3850ef6d9e",
+        name: messageData.name,
+        email: messageData.email,
+        company: messageData.company,
+        note: messageData.note
+      })
+    });
+    if (!web3Response.ok) {
+      console.warn("Web3Forms client-side delivery failed with status:", web3Response.status);
+    }
+  } catch (error) {
+    console.error("Web3Forms client-side delivery failed:", error);
+  }
+
+  return result;
 };
 
 export const sendProxyEmail = async (emailData) => {
